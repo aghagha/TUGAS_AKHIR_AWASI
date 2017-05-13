@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/miCompose"
+        android:icon="@drawable/home"
+        app:showAsAction="ifRoom"
+        android:title="Compose">
+    </item>
+    <item
+        android:id="@+id/profile"
+        android:orderInCategory="100"
+        android:title="Profile"
+        app:showAsAction="never">
+    </item>
+    <item
+        android:id="@+id/profileMurid"
+        android:orderInCategory="100"
+        android:title="Profile Anak"
+        app:showAsAction="never">
+    </item>
+    <item
+        android:id="@+id/ganti"
+        android:orderInCategory="100"
+        android:title="Ganti Anak"
+        app:showAsAction="never">
+    </item>
+    <item
+        android:id="@+id/logout"
+        android:orderInCategory="100"
+        android:title="Logout"
+        app:showAsAction="never">
+    </item>
+</menu>

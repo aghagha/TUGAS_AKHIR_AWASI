@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Antara</string>
+    <string name="title_activity_login">Sign In</string>
+    <string name="prompt_user_email">Email</string>
+    <string name="prompt_user_password">Password</string>
+    <string name="application_description">Pantau aktivitas anak didik baik di sekolah maupun di rumah dengan cepat dan praktis langsung di ponsel anda.</string>
+    <string name="login_button">Masuk</string>
+    <string name="register_from_login"><u>Belum punya akun? Daftar sekarang.</u></string>
+    <string name="title_activity_register">Register</string>
+    <string name="prompt_user_name">Nama Pengguna</string>
+    <string name="prompt_user_phone">No. Telepon</string>
+    <string name="prompt_user_password2">Konfirmasi Password</string>
+    <string name="login_from_register">Sudah punya akun?</string>
+    <string name="register_button">Daftar</string>
+    <string name="kelas_prompt">Pilih kelas</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_acitivity_beranda">Beranda</string>
+    <string name="profil_nama">Nama</string>
+    <string name="profil_ganti_password">Ganti Password</string>
+    <string name="prompt_user_alamat">Alamat</string>
+    <string name="title_activity_profil">Profil</string>
+    <string name="profil_ubah_data">Ubah Data</string>
+    <string name="profil_simpan_data">Simpan Data</string>
+    <string name="gantipw_pw2_konfirm">Konfrimasi Password Baru</string>
+    <string name="gantipw_pw2">Password Baru</string>
+    <string name="gantipw_pw">Password Sekarang</string>
+    <string name="gantipw_title">Ganti Password</string>
+    <string name="kelas_string">Kelas</string>
+    <string name="title_activity_tambah_tugas">Tambah Tugas</string>
+    <string name="prompt_judul_tugas">Judul</string>
+    <string name="prompt_konten_tugas">Isi</string>
+    <string name="prompt_deadline_tugas">Deadline</string>
+    <string name="tugas_save_button">Tambahkan tugas</string>
+    <string name="prompt_mapel_tugas">Mata Pelajaran</string>
+    <string name="dialog_nilai">Nilai</string>
+    <string name="title_activity_forum_guru">Beranda</string>
+    <string name="prompt_create_topik_tujuan">Tujuan</string>
+    <string name="prompt_topik_tambah_gambar">Tambah gambar</string>
+    <string name="prompt_topik_hapus_gambar">Hapus gambar</string>
+    <string name="prompt_topik_ubah_gambar">Ubah gambar</string>
+
+</resources>

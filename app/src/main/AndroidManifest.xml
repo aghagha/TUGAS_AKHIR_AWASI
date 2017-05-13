@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aghagha.tagg">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashScreenActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/title_activity_login"
+            android:noHistory="true"
+            android:theme="@style/WelcomeScreen" />
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".RegisterActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/title_activity_register"
+            android:noHistory="true"
+            android:theme="@style/WelcomeScreen" />
+        <activity
+            android:name=".GuruActivity"
+            android:label="@string/title_acitivity_beranda"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ProfilActivity"
+            android:label="@string/title_activity_profil" />
+        <activity
+            android:name=".CreateTugasActivity"
+            android:label="@string/title_activity_tambah_tugas" />
+        <activity
+            android:name=".InputNilaiActivity"
+            android:label="Nilai Tugas" />
+        <activity android:name=".CreateTopikActivity" />
+        <activity android:name=".TopikActivity" />
+        <activity android:name=".OrangTuaActivity" />
+        <activity android:name=".MuridActivity"></activity>
+    </application>
+
+</manifest>

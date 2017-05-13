@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:background="@android:color/white"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+    <TextView
+        android:id="@+id/tvJudul"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Judul"
+        android:textSize="20dp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/tvCreated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:textSize="12dp"
+        android:textColor="@color/colorTextGray"
+        android:textStyle="italic"
+        android:text="Tanggal"/>
+    <ImageView
+        android:id="@+id/ivGambar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"/>
+    <TextView
+        android:id="@+id/tvKonten"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:textColor="@android:color/black"
+        android:text="Konten"/>
+    <TextView
+        android:id="@+id/tvLampiran"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"/>
+</LinearLayout>

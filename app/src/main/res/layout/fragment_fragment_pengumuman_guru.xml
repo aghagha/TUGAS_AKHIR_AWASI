@@ -1,0 +1,41 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.aghagha.tagg.FragmentPengumumanGuru">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/kelas_string"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="16dp"/>
+        <Spinner
+            android:id="@+id/kelas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/kelas_prompt"
+            style="@style/Widget.AppCompat.DropDownItem.Spinner"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvForumGuru"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fb_tambah"
+        android:src="@drawable/ic_add"
+        app:fabSize="normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        app:layout_anchor="@id/rvForumGuru"
+        app:layout_anchorGravity="bottom|right|end"/>
+
+</FrameLayout>
