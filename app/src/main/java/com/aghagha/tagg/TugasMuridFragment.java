@@ -30,10 +30,9 @@ import java.util.List;
 public class TugasMuridFragment extends Fragment {
     private RecyclerView rvTugasMurid;
 
-
     private List<Tugas> tugasList;
 
-    private TugasGuruAdapter mAdapter;
+    private TugasMuridAdapter mAdapter;
     private ProgressDialog progressDialog;
     private AntaraSessionManager session;
 
@@ -69,7 +68,7 @@ public class TugasMuridFragment extends Fragment {
         rvTugasMurid.setLayoutManager(linearLayoutManager);
         rvTugasMurid.hasFixedSize();
 
-        mAdapter = new TugasGuruAdapter(tugasList);
+        mAdapter = new TugasMuridAdapter(tugasList);
         rvTugasMurid.setAdapter(mAdapter);
 
         getTugasList();
@@ -112,7 +111,9 @@ public class TugasMuridFragment extends Fragment {
                                         mapel.getString(tugas.getString("id_mapel")),
                                         tugas.getString("judul"),
                                         tugas.getString("konten"),
-                                        tugas.getString("status"));
+                                        tugas.getString("status"),
+                                        tugas.getString("cek"),
+                                        tugas.getBoolean("telat"));
                                 tugasList.add(data);
                             }
                         }

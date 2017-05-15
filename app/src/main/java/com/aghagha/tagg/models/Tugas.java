@@ -11,8 +11,9 @@ public class Tugas {
                 deadline,
                 mapel,
                 dibuat,
-                status;
-
+                status,
+                cek;
+    private Boolean telat;
     public Tugas(){
 
     }
@@ -25,6 +26,18 @@ public class Tugas {
         this.mapel = mapel;
         this.dibuat = dibuat;
         this.status = status;
+        this.cek = "";
+    }
+    public Tugas(int id_tugas, String dibuat, String deadline, String mapel, String judul, String konten, String status, String cek, Boolean telat){
+        this.id_tugas = id_tugas;
+        this.judul = judul;
+        this.konten = konten;
+        this.deadline = deadline;
+        this.mapel = mapel;
+        this.dibuat = dibuat;
+        this.status = status;
+        this.cek = cek;
+        this.telat = telat;
     }
 
     public String getJudul() {
@@ -81,5 +94,13 @@ public class Tugas {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCek() {
+        return cek;
+    }
+
+    public Boolean getTelat() {
+        return telat;
     }
 }

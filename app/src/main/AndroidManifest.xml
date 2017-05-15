@@ -54,7 +54,8 @@
         <activity android:name=".CreateTopikActivity" />
         <activity android:name=".TopikActivity" />
         <activity android:name=".OrangTuaActivity" />
-        <activity android:name=".MuridActivity"></activity>
+        <activity android:name=".MuridActivity" />
+        <activity android:name=".TandaiTugasActivity"></activity>
     </application>
 
 </manifest>

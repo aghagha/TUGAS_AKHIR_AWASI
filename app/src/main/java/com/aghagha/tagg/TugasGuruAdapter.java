@@ -50,11 +50,7 @@ public class TugasGuruAdapter extends RecyclerView.Adapter<TugasGuruAdapter.View
         holder.judul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent;
-                if((new AntaraSessionManager(mContext)).getKeyMuridId()==null)
-                    intent = new Intent(mContext,InputNilaiActivity.class);
-                else
-                    intent = new Intent(mContext,InputNilaiActivity.class);
+                Intent intent = new Intent(mContext,InputNilaiActivity.class);
                 intent.putExtra("id",tugasList.get(position).getId_tugas());
                 intent.putExtra("judul",judul);
                 intent.putExtra("konten",konten);
