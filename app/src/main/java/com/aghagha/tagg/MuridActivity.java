@@ -1,14 +1,19 @@
 package com.aghagha.tagg;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.aghagha.tagg.data.AntaraSessionManager;
 import com.astuetz.PagerSlidingTabStrip;
@@ -16,6 +21,7 @@ import com.astuetz.PagerSlidingTabStrip;
 public class MuridActivity extends AppCompatActivity {
     private static String userId;
 
+    private LinearLayout mTabsLinearLayout;
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
     private MyPagerAdapter adapter;
@@ -47,12 +53,23 @@ public class MuridActivity extends AppCompatActivity {
         final String pages[]={"Beranda","Forum","Tugas","Laporan"};
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
+
+        setUpTabs();
+
         tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             // This method will be invoked when a new page becomes selected.
             @Override
             public void onPageSelected(int position) {
                 toolbar.setTitle(pages[position]);
+                for(int i = 0; i< mTabsLinearLayout.getChildCount(); i++){
+                    ImageButton tv = (ImageButton) mTabsLinearLayout.getChildAt(i);
+                    if(i==position){
+                        tv.setColorFilter(Color.WHITE);
+                    } else {
+                        tv.setColorFilter(ContextCompat.getColor(getBaseContext(),R.color.colorSekunder));
+                    }
+                }
             }
 
             @Override
@@ -65,6 +82,18 @@ public class MuridActivity extends AppCompatActivity {
                 // Code goes here
             }
         });
+    }
+
+    private void setUpTabs() {
+        mTabsLinearLayout = (LinearLayout)tabs.getChildAt(0);
+        for(int i = 0; i< mTabsLinearLayout.getChildCount(); i++){
+            ImageButton tv = (ImageButton) mTabsLinearLayout.getChildAt(i);
+            if(i==0){
+                tv.setColorFilter(Color.WHITE);
+            } else {
+                tv.setColorFilter(ContextCompat.getColor(getBaseContext(),R.color.colorSekunder));
+            }
+        }
     }
 
     @Override
@@ -93,7 +122,7 @@ public class MuridActivity extends AppCompatActivity {
 
     private static class MyPagerAdapter extends GuruActivity.MyPagerAdapter implements PagerSlidingTabStrip.IconTabProvider{
         private static int NUM_ITEMS = 4;
-        private int tabIcons[] = {R.drawable.home,R.drawable.chat,R.drawable.edit,R.drawable.edit};
+        private int tabIcons[] = {R.drawable.ic_home,R.drawable.ic_chats,R.drawable.ic_tugas,R.drawable.ic_laporan};
 
         public MyPagerAdapter(FragmentManager supportFragmentManager) {
             super(supportFragmentManager);
