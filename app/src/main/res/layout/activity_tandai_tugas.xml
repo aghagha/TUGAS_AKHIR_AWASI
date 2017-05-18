@@ -42,28 +42,25 @@
             android:textStyle="italic"
             android:text="Tanggal"/>
         <TextView
-            android:id="@+id/tvDeadline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="2dp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:text="Deadline"/>
-        <TextView
             android:id="@+id/tvKonten"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:textColor="@android:color/black"
             android:text="Konten"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSekunder"
+        android:padding="5dp">
         <TextView
-            android:id="@+id/tvStatus"
+            android:id="@+id/tvDeadline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:textColor="@android:color/black"
-            android:text="Status"/>
+            android:textColor="@android:color/white"
+            android:gravity="center_horizontal"
+            android:text="Deadline"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

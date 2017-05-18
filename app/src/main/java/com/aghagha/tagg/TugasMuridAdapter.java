@@ -46,24 +46,34 @@ public class TugasMuridAdapter extends RecyclerView.Adapter<TugasMuridAdapter.Vi
         holder.judul.setText(judul);
         holder.konten.setText(konten);
         holder.dibuat.setText(dibuat);
-        holder.deadline.setText(deadline);
+        if(cek.equals("1")){
+            holder.label_deadline.setVisibility(View.GONE);
+            holder.deadline.setText("Sudah dikerjakan");
+        } else {
+            holder.label_deadline.setVisibility(View.VISIBLE);
+            holder.deadline.setText(deadline);
+        }
         if(status.equals("1")){
+            //kelewat deadline
             holder.judul.setTextColor(ContextCompat.getColor(mContext,android.R.color.white));
             holder.dibuat.setTextColor(ContextCompat.getColor(mContext,android.R.color.white));
             holder.layout2.setVisibility(View.GONE);
             holder.layout3.setVisibility(View.VISIBLE);
             if(tugasList.get(position).getTelat()){
+                //telat dan belum ditandai
                 holder.layout.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorTextRed));
             } else {
+                //tepat waktu
                 holder.layout.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorAccent));
                 holder.judul.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(mContext, "Untuk ini anak anda dapat nilai sekian", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Lihat/tunggu nilai tugas di halaman laporan", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         } else {
+            //masih belum deadline
             holder.judul.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -74,6 +84,7 @@ public class TugasMuridAdapter extends RecyclerView.Adapter<TugasMuridAdapter.Vi
                     intent.putExtra("dibuat", dibuat);
                     intent.putExtra("deadline", deadline);
                     intent.putExtra("status", status);
+                    intent.putExtra("cek", cek);
                     mContext.startActivity(intent);
                 }
             });
@@ -91,7 +102,7 @@ public class TugasMuridAdapter extends RecyclerView.Adapter<TugasMuridAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView judul, dibuat, deadline, konten;
+        public TextView judul, dibuat, deadline, konten, label_deadline;
         public LinearLayout layout, layout2, layout3;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -100,6 +111,7 @@ public class TugasMuridAdapter extends RecyclerView.Adapter<TugasMuridAdapter.Vi
             konten = (TextView)itemView.findViewById(R.id.tvKonten);
             dibuat = (TextView)itemView.findViewById(R.id.tvCreated);
             deadline = (TextView)itemView.findViewById(R.id.tvDeadline);
+            label_deadline = (TextView)itemView.findViewById(R.id.tv_label_deadline);
             layout = (LinearLayout) itemView.findViewById(R.id.layout);
             layout2 = (LinearLayout) itemView.findViewById(R.id.layout2);
             layout3 = (LinearLayout) itemView.findViewById(R.id.layout3);
