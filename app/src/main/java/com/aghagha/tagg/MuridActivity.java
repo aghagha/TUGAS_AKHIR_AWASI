@@ -114,8 +114,8 @@ public class MuridActivity extends AppCompatActivity {
                     return FragmentPengumumanMurid.newInstance();
                 case 2: // TUGAS
                     return TugasMuridFragment.newInstance();
-                case 4: // CHAT
-                    return FragmentBerandaMurid.newInstance();
+                case 3: // CHAT
+                    return LaporanFragment.newInstance();
                 default:
                     return FragmentBerandaMurid.newInstance();
             }

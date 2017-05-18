@@ -30,6 +30,8 @@ public class NetworkUtils {
     public static final String tugasMurid = server + "tugasMurid";
     public static final String mapel = server + "mapel";
 
+    public static final String laporan = server + "laporan";
+
     public static final String nilaGuru = server + "nilaiGuru";
 
     public static final String murid = server + "murid";
