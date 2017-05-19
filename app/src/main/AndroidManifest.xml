@@ -52,10 +52,26 @@
             android:name=".InputNilaiActivity"
             android:label="Nilai Tugas" />
         <activity android:name=".CreateTopikActivity" />
-        <activity android:name=".TopikActivity" />
+        <activity android:name=".TopikActivity">
+            <intent-filter>
+                <action android:name="OPEN_THIS"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".OrangTuaActivity" />
         <activity android:name=".MuridActivity" />
-        <activity android:name=".TandaiTugasActivity"></activity>
+        <activity android:name=".TandaiTugasActivity" />
+
+        <service android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
