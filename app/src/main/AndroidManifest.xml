@@ -54,7 +54,7 @@
         <activity android:name=".CreateTopikActivity" />
         <activity android:name=".TopikActivity">
             <intent-filter>
-                <action android:name="OPEN_THIS"/>
+                <action android:name="OPEN_THIS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -69,9 +69,11 @@
         </service>
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".BeritaActivity"></activity>
     </application>
 
 </manifest>
