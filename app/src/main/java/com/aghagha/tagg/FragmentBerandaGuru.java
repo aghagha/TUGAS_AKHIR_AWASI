@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,8 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.aghagha.tagg.models.Jadwal;
 import com.aghagha.tagg.utilities.NetworkUtils;
 import com.aghagha.tagg.utilities.VolleyUtil;
 import com.aghagha.tagg.data.AntaraSessionManager;
@@ -32,12 +36,20 @@ public class FragmentBerandaGuru extends Fragment implements BerandaGuruAdapter.
     private int page;
 
     private Context mContext;
-    private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView, rvJadwal;
     private BerandaGuruAdapter mAdapter;
+    private JadwalAdapter mJadwalAdapter;
+
     private List<Berita> beritaList;
+    private List<Jadwal> jadwalList;
 
     private ProgressDialog progressDialog;
     private SwipeRefreshLayout swipeContainer;
+
+    private TextView hari, tanggal, bulan;
+    private LinearLayout errorLayout;
+    private NestedScrollView nestedScrollView;
+    private Button reload;
 
     private String userId;
 
@@ -81,19 +93,36 @@ public class FragmentBerandaGuru extends Fragment implements BerandaGuruAdapter.
         volleyUtil.SendRequestGET(new VolleyUtil.VolleyResponseListener() {
             @Override
             public void onError(VolleyError error) {
-                Toast.makeText(getActivity(),
-                        "Halaman gagal dimuat, coba lagi", Toast.LENGTH_LONG).show();
+                errorLayout.setVisibility(View.VISIBLE);
+                nestedScrollView.setVisibility(View.GONE);
                 hideDialog();
             }
 
             @Override
             public void onResponse(String response) {
+                errorLayout.setVisibility(View.GONE);
+                nestedScrollView.setVisibility(View.VISIBLE);
                 mResponse[0] = response;
                 hideDialog();
                 mAdapter.clear();
+                mJadwalAdapter.clear();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if(jsonObject.length() > 0){
+                        hari.setText(jsonObject.getString("hari"));
+                        tanggal.setText(jsonObject.getString("tanggal"));
+                        bulan.setText(jsonObject.getString("bulan").toUpperCase());
+
+                        JSONArray listJadwal = jsonObject.getJSONArray("jadwal");
+                        JSONObject listMapel = jsonObject.getJSONObject("mapel");
+                        for (int j = 0; j< listJadwal.length();j++){
+                            JSONObject jadwal = listJadwal.getJSONObject(j);
+                            Jadwal data = new Jadwal(jadwal.getString("mulai")+"-"+jadwal.getString("berakhir"),
+                                    jadwal.getString("kelas"),
+                                    listMapel.getString(jadwal.getString("id_mapel")));
+                            jadwalList.add(data);
+                        }
+
                         JSONArray listBerita = jsonObject.getJSONArray("berita");
                         Log.d("jumlah berita", String.valueOf(listBerita.length()));
                         for(int i = 0; i < listBerita.length(); i++){
@@ -108,6 +137,7 @@ public class FragmentBerandaGuru extends Fragment implements BerandaGuruAdapter.
                         }
                     }
                     mAdapter.notifyDataSetChanged();
+                    mJadwalAdapter.notifyDataSetChanged();
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
@@ -121,14 +151,38 @@ public class FragmentBerandaGuru extends Fragment implements BerandaGuruAdapter.
         View view = inflater.inflate(R.layout.fragment_beranda_guru, container, false);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rvBerandaGuru);
+        rvJadwal = (RecyclerView) view.findViewById(R.id.rvJadwal);
         beritaList = new ArrayList<>();
+        jadwalList = new ArrayList<>();
+        mRecyclerView.setNestedScrollingEnabled(false);
+        rvJadwal.setNestedScrollingEnabled(false);
+
+        hari = (TextView)view.findViewById(R.id.hari);
+        tanggal = (TextView)view.findViewById(R.id.tanggal);
+        bulan = (TextView)view.findViewById(R.id.bulan);
+        errorLayout = (LinearLayout)view.findViewById(R.id.error);
+        nestedScrollView = (NestedScrollView)view.findViewById(R.id.nested);
+        reload = (Button)view.findViewById(R.id.btReload);
+        reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getBeritaList(userId);
+            }
+        });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.hasFixedSize();
 
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false);
+        rvJadwal.setLayoutManager(linearLayoutManager2);
+        rvJadwal.hasFixedSize();
+
         mAdapter = new BerandaGuruAdapter(beritaList);
+        mJadwalAdapter = new JadwalAdapter(jadwalList);
+
         mRecyclerView.setAdapter(mAdapter);
+        rvJadwal.setAdapter(mJadwalAdapter);
 
         getBeritaList(userId);
         return view;

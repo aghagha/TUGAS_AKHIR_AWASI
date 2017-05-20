@@ -4,10 +4,114 @@
     android:layout_height="match_parent"
     tools:context="com.aghagha.tagg.FragmentBerandaGuru"
     android:background="@color/colorGray">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvBerandaGuru"
+    <LinearLayout
+        android:id="@+id/error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="120dp"
+            android:text="Halaman tidak bisa dimuat, silahkan coba lagi."
+            android:textAlignment="center"/>
+        <Button
+            android:id="@+id/btReload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Muat Ulang"/>
+    </LinearLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="28dp"
+                android:paddingLeft="16dp"
+                android:paddingBottom="4dp"
+                android:gravity="bottom"
+                android:textSize="10sp"
+                android:text="JADWAL"/>
+            <LinearLayout
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:background="@android:color/white"
+                android:elevation="2dp">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_gravity="top"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shadow">
+                    <TextView
+                        android:id="@+id/hari"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hari"
+                        android:textSize="12sp"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"
+                        android:background="@color/colorAccent"
+                        android:elevation="2dp"/>
+                    <TextView
+                        android:id="@+id/tanggal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="DD"
+                        android:textSize="30sp"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"/>
+                    <TextView
+                        android:id="@+id/bulan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="MMMMM"
+                        android:textSize="10sp"
+                        android:textAlignment="center"
+                        android:paddingBottom="4sp"
+                        android:textColor="@android:color/black"/>
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvJadwal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tabs"
+                android:paddingTop="28dp"
+                android:paddingLeft="16dp"
+                android:paddingBottom="4dp"
+                android:gravity="bottom"
+                android:textSize="10sp"
+                android:text="BERITA"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvBerandaGuru"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </FrameLayout>

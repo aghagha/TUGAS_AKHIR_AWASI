@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -72,6 +73,10 @@ public class FragmentBerandaMurid extends Fragment {
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rvBerandaMurid);
         beritaList = new ArrayList<>();
+
+        NestedScrollView scrollView = (NestedScrollView) view.findViewById (R.id.nest_scrollview);
+        scrollView.setFillViewport (true);
+        mRecyclerView.setNestedScrollingEnabled(false);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(linearLayoutManager);

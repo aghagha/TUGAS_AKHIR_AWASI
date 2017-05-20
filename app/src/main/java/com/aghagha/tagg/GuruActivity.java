@@ -3,6 +3,8 @@ package com.aghagha.tagg;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -46,6 +48,9 @@ public class GuruActivity extends AppCompatActivity {
         }
 
         final Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_option);
+        drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        toolbar.setOverflowIcon(drawable);
         setSupportActionBar(toolbar);
 
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
