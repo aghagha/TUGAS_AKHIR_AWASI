@@ -55,8 +55,8 @@ public class AntaraSessionManager {
     public void checkLogin(){
         if(!this.isLoggedIn()){
             Intent intent = new Intent(_context, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
             // Starting Login Activity
             _context.startActivity(intent);
         }
@@ -80,8 +80,7 @@ public class AntaraSessionManager {
 
         // After logout redirect user to Login Activity
         Intent intent = new Intent(_context, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
         // Staring Login Activity
         _context.startActivity(intent);

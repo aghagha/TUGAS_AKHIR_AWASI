@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,12 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aghagha.tagg.data.AntaraSessionManager;
-import com.aghagha.tagg.models.Berita;
 import com.aghagha.tagg.models.Tugas;
 import com.aghagha.tagg.utilities.NetworkUtils;
 import com.aghagha.tagg.utilities.VolleyUtil;
@@ -47,6 +47,9 @@ public class FragmentTugasGuru extends Fragment {
     private TugasGuruAdapter mAdapter;
     private List<Tugas> tugasList;
     private Spinner kelasSpinner;
+    private LinearLayout errorLayout, empty;
+    private CoordinatorLayout layout;
+    private Button btReload;
 
     ArrayAdapter<String> kelasAdapter;
     HashMap<Integer,String> spinnerMap;
@@ -77,6 +80,8 @@ public class FragmentTugasGuru extends Fragment {
 
         spinnerMap = new HashMap<>();
 
+        idKelasTerpilih = "0";
+
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
     }
@@ -99,12 +104,24 @@ public class FragmentTugasGuru extends Fragment {
         drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         fb_tambah.setBackgroundDrawable(drawable);
 
+        errorLayout = (LinearLayout)view.findViewById(R.id.error);
+        empty = (LinearLayout)view.findViewById(R.id.empty);
+        btReload = (Button)view.findViewById(R.id.btReload);
+        layout = (CoordinatorLayout)view.findViewById(R.id.layout);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false);
         rvTugasGuru.setLayoutManager(linearLayoutManager);
         rvTugasGuru.hasFixedSize();
 
         mAdapter = new TugasGuruAdapter(tugasList);
         rvTugasGuru.setAdapter(mAdapter);
+
+        btReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getTugasList(session.getKeyId(),idKelasTerpilih);
+            }
+        });
 
         rvTugasGuru.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
@@ -123,14 +140,14 @@ public class FragmentTugasGuru extends Fragment {
             }
         });
 
-        getTugasList(session.getKeyId(),"0");
+        getTugasList(session.getKeyId(),idKelasTerpilih);
 
         kelasSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(!firstTimeLoad){
-                    getTugasList(session.getKeyId(),spinnerMap.get(i));
                     idKelasTerpilih = spinnerMap.get(i);
+                    getTugasList(session.getKeyId(),idKelasTerpilih);
                     kelasTerpilih = adapterView.getItemAtPosition(i).toString();
                 }
             }
@@ -164,8 +181,8 @@ public class FragmentTugasGuru extends Fragment {
         volleyUtil.SendRequestGET(new VolleyUtil.VolleyResponseListener() {
             @Override
             public void onError(VolleyError error) {
-                Toast.makeText(getActivity(),
-                        "Halaman gagal dimuat, coba lagi", Toast.LENGTH_LONG).show();
+                layout.setVisibility(View.GONE);
+                errorLayout.setVisibility(View.VISIBLE);
                 hideDialog();
             }
 
@@ -200,6 +217,7 @@ public class FragmentTugasGuru extends Fragment {
 
                         JSONArray listTugas = jsonObject.getJSONArray("tugas");
                         if(listTugas.length()>0){
+                            empty.setVisibility(View.GONE);
                             for(int i = 0; i < listTugas.length(); i++){
                                 JSONObject tugas = listTugas.getJSONObject(i);
                                 Tugas data = new Tugas(tugas.getInt("id"),
@@ -211,8 +229,11 @@ public class FragmentTugasGuru extends Fragment {
                                         tugas.getString("status"));
                                 tugasList.add(data);
                             }
-                        }
+                        } else empty.setVisibility(View.VISIBLE);
+
                         mAdapter.notifyDataSetChanged();
+                        layout.setVisibility(View.VISIBLE);
+                        errorLayout.setVisibility(View.GONE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

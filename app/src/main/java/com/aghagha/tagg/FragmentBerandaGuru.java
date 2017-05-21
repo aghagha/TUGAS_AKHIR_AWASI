@@ -47,7 +47,7 @@ public class FragmentBerandaGuru extends Fragment implements BerandaGuruAdapter.
     private SwipeRefreshLayout swipeContainer;
 
     private TextView hari, tanggal, bulan, tv_jadwal;
-    private LinearLayout errorLayout;
+    private LinearLayout errorLayout, empty;
     private NestedScrollView nestedScrollView;
     private Button reload;
 
@@ -128,16 +128,21 @@ public class FragmentBerandaGuru extends Fragment implements BerandaGuruAdapter.
                         }
 
                         JSONArray listBerita = jsonObject.getJSONArray("berita");
-                        Log.d("jumlah berita", String.valueOf(listBerita.length()));
-                        for(int i = 0; i < listBerita.length(); i++){
-                            JSONObject berita = listBerita.getJSONObject(i);
-                            Berita data = new Berita(berita.getInt("id_t_berita"),
-                                    berita.getString("judul"),
-                                    berita.getString("konten"),
-                                    berita.getString("gambar"),
-                                    berita.getString("lampiran"),
-                                    berita.getString("date"));
-                            beritaList.add(data);
+                        if(listBerita.length()>0){
+                            empty.setVisibility(View.GONE);
+                            Log.d("jumlah berita", String.valueOf(listBerita.length()));
+                            for(int i = 0; i < listBerita.length(); i++){
+                                JSONObject berita = listBerita.getJSONObject(i);
+                                Berita data = new Berita(berita.getInt("id_t_berita"),
+                                        berita.getString("judul"),
+                                        berita.getString("konten"),
+                                        berita.getString("gambar"),
+                                        berita.getString("lampiran"),
+                                        berita.getString("date"));
+                                beritaList.add(data);
+                            }
+                        } else {
+                            empty.setVisibility(View.VISIBLE);
                         }
                     }
                     mAdapter.notifyDataSetChanged();
@@ -166,6 +171,7 @@ public class FragmentBerandaGuru extends Fragment implements BerandaGuruAdapter.
         bulan = (TextView)view.findViewById(R.id.bulan);
         tv_jadwal = (TextView)view.findViewById(R.id.tv_jadwal);
         errorLayout = (LinearLayout)view.findViewById(R.id.error);
+        empty = (LinearLayout)view.findViewById(R.id.empty);
         nestedScrollView = (NestedScrollView)view.findViewById(R.id.nested);
         reload = (Button)view.findViewById(R.id.btReload);
         reload.setOnClickListener(new View.OnClickListener() {

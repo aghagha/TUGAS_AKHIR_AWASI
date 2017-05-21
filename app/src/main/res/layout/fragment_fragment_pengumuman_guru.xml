@@ -5,29 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.aghagha.tagg.FragmentPengumumanGuru"
     android:background="@color/colorGray">
-    <LinearLayout
-        android:id="@+id/error"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:visibility="gone">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="120dp"
-            android:text="Halaman tidak bisa dimuat, silahkan coba lagi."
-            android:textAlignment="center"/>
-        <Button
-            android:id="@+id/btReload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Muat Ulang"/>
-    </LinearLayout>
+    <include layout="@layout/error_layout"></include>
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:visibility="visible">
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,17 +37,18 @@
                 android:layout_height="wrap_content">
             </android.support.v7.widget.RecyclerView>
             <include layout="@layout/kosong"></include>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fb_tambah"
+                android:src="@drawable/ic_add_chat"
+                app:fabSize="normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="16dp"
+                app:layout_anchor="@id/rvForumGuru"
+                android:scaleType="center"
+                app:layout_anchorGravity="bottom|right|end"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fb_tambah"
-        android:src="@drawable/ic_add_chat"
-        app:fabSize="normal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        app:layout_anchor="@id/rvForumGuru"
-        android:scaleType="center"
-        app:layout_anchorGravity="bottom|right|end"/>
 </FrameLayout>

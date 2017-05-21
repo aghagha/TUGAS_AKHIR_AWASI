@@ -43,7 +43,7 @@ public class FragmentBerandaMurid extends Fragment {
     private TextView tv_nama, tv_sekolah, tv_kelas, hari, tanggal, bulan, tv_jadwal;
     private CircleImageView iv_profile;
     private NestedScrollView nested;
-    private LinearLayout errorLayout;
+    private LinearLayout errorLayout, empty;
     private Button btReload;
 
     private ProgressDialog progressDialog;
@@ -134,6 +134,7 @@ public class FragmentBerandaMurid extends Fragment {
         nested = (NestedScrollView)view.findViewById(R.id.nest_scrollview);
         nested.setVisibility(View.GONE);
         errorLayout = (LinearLayout)view.findViewById(R.id.error);
+        empty = (LinearLayout)view.findViewById(R.id.empty);
         btReload = (Button)view.findViewById(R.id.btReload);
 
         btReload.setOnClickListener(new View.OnClickListener() {
@@ -189,17 +190,20 @@ public class FragmentBerandaMurid extends Fragment {
                         }
 
                         JSONArray listBerita = jsonObject.getJSONArray("berita");
-                        Log.d("jumlah berita", String.valueOf(listBerita.length()));
-                        for(int i = 0; i < listBerita.length(); i++){
-                            JSONObject berita = listBerita.getJSONObject(i);
-                            Berita data = new Berita(berita.getInt("id_t_berita"),
-                                    berita.getString("judul"),
-                                    berita.getString("konten"),
-                                    berita.getString("gambar"),
-                                    berita.getString("lampiran"),
-                                    berita.getString("date"));
-                            beritaList.add(data);
-                        }
+                        if(listBerita.length()>0){
+                            empty.setVisibility(View.GONE);
+                            Log.d("jumlah berita", String.valueOf(listBerita.length()));
+                            for(int i = 0; i < listBerita.length(); i++){
+                                JSONObject berita = listBerita.getJSONObject(i);
+                                Berita data = new Berita(berita.getInt("id_t_berita"),
+                                        berita.getString("judul"),
+                                        berita.getString("konten"),
+                                        berita.getString("gambar"),
+                                        berita.getString("lampiran"),
+                                        berita.getString("date"));
+                                beritaList.add(data);
+                            }
+                        } else empty.setVisibility(View.VISIBLE);
                     }
                     nested.setVisibility(View.VISIBLE);
                     errorLayout.setVisibility(View.GONE);

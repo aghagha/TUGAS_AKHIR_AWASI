@@ -93,17 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onError(VolleyError error) {
                 hideDialog();
-                String body = "";
-                error.printStackTrace();
-                if(error.networkResponse.data!=null) {
-                    try {
-                        body = new String(error.networkResponse.data, "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Toast.makeText(getApplicationContext(),
-                        body, Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Login gagal...", Toast.LENGTH_SHORT).show();
             }
 
             @Override

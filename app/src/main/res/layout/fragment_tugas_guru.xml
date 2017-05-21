@@ -4,8 +4,9 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.aghagha.tagg.FragmentTugasGuru">
-
+    <include layout="@layout/error_layout"></include>
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:background="@color/colorGray">
@@ -34,6 +35,7 @@
                 android:layout_height="match_parent"
                 app:layout_anchor="@id/kelas">
             </android.support.v7.widget.RecyclerView>
+            <include layout="@layout/kosong"></include>
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
