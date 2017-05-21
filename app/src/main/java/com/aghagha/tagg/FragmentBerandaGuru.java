@@ -46,7 +46,7 @@ public class FragmentBerandaGuru extends Fragment implements BerandaGuruAdapter.
     private ProgressDialog progressDialog;
     private SwipeRefreshLayout swipeContainer;
 
-    private TextView hari, tanggal, bulan;
+    private TextView hari, tanggal, bulan, tv_jadwal;
     private LinearLayout errorLayout;
     private NestedScrollView nestedScrollView;
     private Button reload;
@@ -112,15 +112,19 @@ public class FragmentBerandaGuru extends Fragment implements BerandaGuruAdapter.
                         hari.setText(jsonObject.getString("hari"));
                         tanggal.setText(jsonObject.getString("tanggal"));
                         bulan.setText(jsonObject.getString("bulan").toUpperCase());
-
                         JSONArray listJadwal = jsonObject.getJSONArray("jadwal");
-                        JSONObject listMapel = jsonObject.getJSONObject("mapel");
-                        for (int j = 0; j< listJadwal.length();j++){
-                            JSONObject jadwal = listJadwal.getJSONObject(j);
-                            Jadwal data = new Jadwal(jadwal.getString("mulai")+"-"+jadwal.getString("berakhir"),
-                                    jadwal.getString("kelas"),
-                                    listMapel.getString(jadwal.getString("id_mapel")));
-                            jadwalList.add(data);
+                        if(listJadwal.length()>0){
+                            tv_jadwal.setVisibility(View.GONE);rvJadwal.setVisibility(View.VISIBLE);
+                            JSONObject listMapel = jsonObject.getJSONObject("mapel");
+                            for (int j = 0; j< listJadwal.length();j++){
+                                JSONObject jadwal = listJadwal.getJSONObject(j);
+                                Jadwal data = new Jadwal(jadwal.getString("mulai")+"-"+jadwal.getString("berakhir"),
+                                        jadwal.getString("kelas"),
+                                        listMapel.getString(jadwal.getString("id_mapel")));
+                                jadwalList.add(data);
+                            }
+                        } else {
+                            tv_jadwal.setVisibility(View.VISIBLE);rvJadwal.setVisibility(View.GONE);
                         }
 
                         JSONArray listBerita = jsonObject.getJSONArray("berita");
@@ -160,6 +164,7 @@ public class FragmentBerandaGuru extends Fragment implements BerandaGuruAdapter.
         hari = (TextView)view.findViewById(R.id.hari);
         tanggal = (TextView)view.findViewById(R.id.tanggal);
         bulan = (TextView)view.findViewById(R.id.bulan);
+        tv_jadwal = (TextView)view.findViewById(R.id.tv_jadwal);
         errorLayout = (LinearLayout)view.findViewById(R.id.error);
         nestedScrollView = (NestedScrollView)view.findViewById(R.id.nested);
         reload = (Button)view.findViewById(R.id.btReload);
