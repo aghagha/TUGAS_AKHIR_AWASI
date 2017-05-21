@@ -2,6 +2,9 @@ package com.aghagha.tagg;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -110,6 +113,10 @@ public class FragmentPengumumanGuru extends Fragment {
         kelasSpinner = (Spinner)view.findViewById(R.id.kelas);
 
         fb_tambah = (FloatingActionButton)view.findViewById(R.id.fb_tambah);
+        Drawable drawable = fb_tambah.getDrawable();
+        drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        fb_tambah.setBackgroundDrawable(drawable);
+
         operation = new View.OnClickListener() {
             @Override
             public void onClick(View view) {

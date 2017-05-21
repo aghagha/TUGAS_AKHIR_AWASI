@@ -4,6 +4,9 @@ package com.aghagha.tagg;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -88,10 +91,13 @@ public class FragmentTugasGuru extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tugas_guru, container, false);
-        fb_tambah = (FloatingActionButton) view.findViewById(R.id.fb_tambah);
         rvTugasGuru = (RecyclerView) view.findViewById(R.id.rvTugasGuru);
         kelasSpinner = (Spinner) view.findViewById(R.id.kelas);
         tugasList = new ArrayList<>();
+        fb_tambah = (FloatingActionButton) view.findViewById(R.id.fb_tambah);
+        Drawable drawable = fb_tambah.getDrawable();
+        drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        fb_tambah.setBackgroundDrawable(drawable);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false);
         rvTugasGuru.setLayoutManager(linearLayoutManager);
