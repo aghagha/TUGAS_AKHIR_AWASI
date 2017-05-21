@@ -2,6 +2,8 @@ package com.aghagha.tagg;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -26,6 +28,7 @@ public class MuridActivity extends AppCompatActivity {
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
     private MyPagerAdapter adapter;
+    Intent intent;
 
     AntaraSessionManager session;
 
@@ -40,10 +43,13 @@ public class MuridActivity extends AppCompatActivity {
             session.logoutUser();
             finish();
         }
-        Intent intent = getIntent();
+        intent = getIntent();
         userId = intent.getStringExtra("id");
 
         final Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_option);
+        drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        toolbar.setOverflowIcon(drawable);
         setSupportActionBar(toolbar);
 
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -121,8 +127,8 @@ public class MuridActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private static class MyPagerAdapter extends GuruActivity.MyPagerAdapter implements PagerSlidingTabStrip.IconTabProvider{
-        private static int NUM_ITEMS = 4;
+    private class MyPagerAdapter extends GuruActivity.MyPagerAdapter implements PagerSlidingTabStrip.IconTabProvider{
+        private int NUM_ITEMS = 4;
         private int tabIcons[] = {R.drawable.ic_home,R.drawable.ic_chats,R.drawable.ic_tugas,R.drawable.ic_laporan};
 
         public MyPagerAdapter(FragmentManager supportFragmentManager) {
@@ -139,7 +145,7 @@ public class MuridActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: // BERANDA
-                    return FragmentBerandaMurid.newInstance();
+                    return FragmentBerandaMurid.newInstance(intent.getStringExtra("nama"),intent.getStringExtra("sekolah"),intent.getStringExtra("kelas"),intent.getStringExtra("gambar"));
                 case 1: // CHAT
                     return FragmentPengumumanMurid.newInstance();
                 case 2: // TUGAS
@@ -147,7 +153,7 @@ public class MuridActivity extends AppCompatActivity {
                 case 3: // CHAT
                     return LaporanFragment.newInstance();
                 default:
-                    return FragmentBerandaMurid.newInstance();
+                    return FragmentBerandaMurid.newInstance(intent.getStringExtra("nama"),intent.getStringExtra("sekolah"),intent.getStringExtra("kelas"),intent.getStringExtra("gambar"));
             }
         }
 

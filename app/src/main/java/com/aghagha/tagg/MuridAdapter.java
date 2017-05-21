@@ -48,6 +48,7 @@ public class MuridAdapter extends RecyclerView.Adapter<MuridAdapter.ViewHolder>{
         final String gambar = listMurid.get(position).getGambar();
         holder.nama.setText(listMurid.get(position).getNama());
         holder.kelas.setText(listMurid.get(position).getKelas());
+        holder.sekolah.setText(listMurid.get(position).getSekolah());
         if(!gambar.equals(""))
             new DownloadImageTask(holder.iv_gambar).equals(NetworkUtils.profil_image+gambar);
 
@@ -55,6 +56,10 @@ public class MuridAdapter extends RecyclerView.Adapter<MuridAdapter.ViewHolder>{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext,MuridActivity.class);
+                intent.putExtra("nama",listMurid.get(position).getNama());
+                intent.putExtra("kelas",listMurid.get(position).getKelas());
+                intent.putExtra("sekolah",listMurid.get(position).getSekolah());
+                intent.putExtra("gambar",gambar);
                 new AntaraSessionManager(mContext).setMurid(listMurid.get(position).getId());
                 mContext.startActivity(intent);
             }
@@ -72,13 +77,14 @@ public class MuridAdapter extends RecyclerView.Adapter<MuridAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nama, kelas;
+        TextView nama, kelas, sekolah;
         CircleImageView iv_gambar;
         LinearLayout layout;
         public ViewHolder(View itemView) {
             super(itemView);
             nama = (TextView)itemView.findViewById(R.id.tv_nama);
             kelas = (TextView)itemView.findViewById(R.id.tv_kelas);
+            sekolah = (TextView)itemView.findViewById(R.id.tv_sekolah);
             iv_gambar = (CircleImageView)itemView.findViewById(R.id.iv_profil);
             layout = (LinearLayout)itemView.findViewById(R.id.layout);
         }

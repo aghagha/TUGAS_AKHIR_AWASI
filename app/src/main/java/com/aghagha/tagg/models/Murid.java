@@ -10,13 +10,15 @@ public class Murid {
     private String kelas;
     private String wali;
     private String gambar;
+    private String sekolah;
 
-    public Murid (String id, String nama, String kelas, String wali, String gambar){
+    public Murid (String id, String nama, String kelas, String wali, String gambar, String sekolah){
         this.id = id;
         this.nama = nama;
         this.kelas = kelas;
         this.wali = wali;
         this.gambar = gambar;
+        this.sekolah = sekolah;
     }
 
     public String getNama() {
@@ -37,5 +39,9 @@ public class Murid {
 
     public String getId() {
         return id;
+    }
+
+    public String getSekolah() {
+        return sekolah;
     }
 }

@@ -81,7 +81,8 @@ public class OrangTuaActivity extends AppCompatActivity {
                                                         murid.getString("nama"),
                                                         murid.getString("kelas"),
                                                         wali,
-                                                        murid.getString("gambar"));
+                                                        murid.getString("gambar"),
+                                                        murid.getString("sekolah"));
                                 muridList.add(data);
                             }
                             mAdapter.notifyDataSetChanged();
