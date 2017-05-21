@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,96 +7,134 @@
     tools:context="com.aghagha.tagg.TopikActivity"
     android:background="@color/colorGray"
     android:orientation="vertical">
+
     <View
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:layout_width="0px"
-        android:layout_height="0px"/>
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextColor="@android:color/white"
-        android:background="@color/colorAccent">
-    </android.support.v7.widget.Toolbar>
+        android:background="@color/colorAccent"
+        app:titleTextColor="@android:color/white"/>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="fill_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical"
-            android:background="@color/colorGray">
+            android:background="@color/colorGray"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/white"
+                android:elevation="2dp"
                 android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@android:color/white">
-                <TextView
-                    android:id="@+id/tvJudul"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Judul"
-                    android:textSize="20dp"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:clickable="true"/>
-                <TextView
-                    android:id="@+id/tvCreated"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="12dp"
-                    android:textColor="@color/colorTextGray"
-                    android:textStyle="italic"
-                    android:text="Tanggal"/>
+                android:paddingTop="12dp">
+
                 <ImageView
                     android:id="@+id/ivGambar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"/>
-                <TextView
-                    android:id="@+id/tvKonten"
+                    android:layout_marginBottom="12dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:textColor="@android:color/black"
-                    android:text="Konten"/>
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvJudul"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Judul"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvCreated"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Tanggal"
+                        android:textColor="@color/colorTextGray"
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/tvKonten"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="Konten"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp" />
+                </LinearLayout>
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="28dp"
+                android:text="KOMENTAR"
+                android:textColor="@color/colorTextGray"
+                android:textSize="10sp" />
+
             <android.support.v7.widget.RecyclerView
-                android:background="@android:color/white"
                 android:id="@+id/rvKomentar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </android.support.v7.widget.RecyclerView>
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"></android.support.v7.widget.RecyclerView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="8"
+                android:background="@color/colorGray"
                 android:orientation="horizontal"
-                android:layout_gravity="bottom"
-                android:background="@android:color/white">
+                android:weightSum="8">
+
                 <EditText
                     android:id="@+id/et_komentar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="6"
+                    android:background="@android:color/white"
                     android:hint="Tambahkan komentar.."
-                    android:inputType="textMultiLine"/>
+                    android:inputType="textMultiLine"
+                    android:minLines="2"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="8dp"
+                    android:textSize="12sp" />
+
                 <Button
                     android:id="@+id/bt_post"
                     android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:text="post"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
                     android:layout_weight="2"
                     android:background="@color/colorAccent"
-                    android:textColor="@android:color/white"/>
+                    android:text="post"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

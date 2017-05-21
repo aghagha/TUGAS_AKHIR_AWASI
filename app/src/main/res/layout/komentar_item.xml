@@ -13,7 +13,7 @@
         android:layout_height="60dp"
         android:layout_weight="1"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="top"
         android:src="@drawable/default_user"/>
     <LinearLayout
         android:layout_width="0dp"
@@ -27,12 +27,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
             android:text="Nama"/>
         <TextView
             android:id="@+id/tvWaktu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="11dp"
+            android:textSize="10dp"
             android:textStyle="italic"
             android:text="Waktu"/>
         <TextView
@@ -40,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
+            android:textSize="12sp"
             android:text="Komentar"/>
     </LinearLayout>
 </LinearLayout>

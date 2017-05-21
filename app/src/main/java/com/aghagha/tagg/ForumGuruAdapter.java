@@ -41,13 +41,20 @@ public class ForumGuruAdapter extends RecyclerView.Adapter<ForumGuruAdapter.View
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final String gambar = topikList.get(position).getGambar();
+        final String judul = topikList.get(position).getJudul();
 
-        holder.judul.setText(topikList.get(position).getJudul());
+        if(judul.length()  >= 50){
+            holder.judul.setText(judul.substring(0,49)+"...");
+        } else {
+            holder.judul.setText(judul);
+        }
         holder.tanggal.setText(topikList.get(position).getTanggal());
         holder.konten.setText(topikList.get(position).getKonten());
         holder.komentar.setText(topikList.get(position).getKomentar()+" komentar");
         if(!gambar.equals("null")){
             new DownloadImageTask(holder.gambar).execute(NetworkUtils.topik_gambar+gambar);
+        } else {
+            holder.gambar.setVisibility(View.GONE);
         }
 
         //@TODO tambahin tujuan dari pesan

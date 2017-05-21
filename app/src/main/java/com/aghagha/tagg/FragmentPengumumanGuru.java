@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -34,12 +37,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public class FragmentPengumumanGuru extends Fragment {
+    private LinearLayout errorLayout, kosong;
+    private NestedScrollView layout;
+    private Button btReload;
     private RecyclerView mRecyclerView;
     private FloatingActionButton fb_tambah;
     private Spinner kelasSpinner;
 
     private ForumGuruAdapter mAdapter;
-    ArrayAdapter<String> kelasAdapter;
+    private ArrayAdapter<String> kelasAdapter;
 
     private List<Topik> topikList;
     private HashMap<Integer,String> spinnerMap;
@@ -61,6 +67,8 @@ public class FragmentPengumumanGuru extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         session = new AntaraSessionManager(getContext());
         session.checkLogin();
+
+        idKelasTerpilih = "0";
 
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
@@ -88,27 +96,11 @@ public class FragmentPengumumanGuru extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.hasFixedSize();
 
         mAdapter=new ForumGuruAdapter(topikList);
         mRecyclerView.setAdapter(mAdapter);
-
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy){
-                if (dy > 0 ||dy<0 && fb_tambah.isShown())
-                    fb_tambah.hide();
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-
-                if (newState == RecyclerView.SCROLL_STATE_IDLE){
-                    fb_tambah.show();
-                }
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-        });
 
         kelasSpinner = (Spinner)view.findViewById(R.id.kelas);
 
@@ -116,6 +108,19 @@ public class FragmentPengumumanGuru extends Fragment {
         Drawable drawable = fb_tambah.getDrawable();
         drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         fb_tambah.setBackgroundDrawable(drawable);
+
+        layout = (NestedScrollView) view.findViewById(R.id.layout);
+        layout.setVisibility(View.GONE);
+
+        kosong = (LinearLayout)view.findViewById(R.id.empty);
+        errorLayout= (LinearLayout)view.findViewById(R.id.error);
+        btReload = (Button)view.findViewById(R.id.btReload);
+        btReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getTopikList(idKelasTerpilih);
+            }
+        });
 
         operation = new View.OnClickListener() {
             @Override
@@ -131,7 +136,7 @@ public class FragmentPengumumanGuru extends Fragment {
         };
         fb_tambah.setOnClickListener(operation);
 
-        getTopikList("0");
+        getTopikList(idKelasTerpilih);
         kelasSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -157,8 +162,8 @@ public class FragmentPengumumanGuru extends Fragment {
         volleyUtil.SendRequestGET(new VolleyUtil.VolleyResponseListener() {
             @Override
             public void onError(VolleyError error) {
-                Toast.makeText(getActivity(),
-                        "Halaman gagal dimuat, coba lagi", Toast.LENGTH_LONG).show();
+                layout.setVisibility(View.GONE);
+                errorLayout.setVisibility(View.VISIBLE);
                 progressDialog.dismiss();
             }
 
@@ -185,6 +190,10 @@ public class FragmentPengumumanGuru extends Fragment {
                                 topikList.add(data);
                             }
                             mAdapter.notifyDataSetChanged();
+
+                            kosong.setVisibility(View.GONE);
+                        } else {
+                            kosong.setVisibility(View.VISIBLE);
                         }
                         if(firstTimeLoad){
                             JSONArray kelasArray = jsonObject.getJSONArray("kelas");
@@ -201,8 +210,10 @@ public class FragmentPengumumanGuru extends Fragment {
                             firstTimeLoad = false;
                         }
                     } else {
-
+                        kosong.setVisibility(View.VISIBLE);
                     }
+                    layout.setVisibility(View.VISIBLE);
+                    errorLayout.setVisibility(View.GONE);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

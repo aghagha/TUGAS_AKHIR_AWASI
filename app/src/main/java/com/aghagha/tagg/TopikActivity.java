@@ -52,19 +52,20 @@ public class TopikActivity extends AppCompatActivity {
     String idTopik;
     String judul_, tanggal_, konten_;
     String gambar;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topik);
-
+        Intent intent = getIntent();
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.setTitle(intent.getStringExtra("judul"));
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Intent intent = getIntent();
         idTopik = intent.getStringExtra("id_topik");
 
         progressDialog =  new ProgressDialog(this);
@@ -79,6 +80,7 @@ public class TopikActivity extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.hasFixedSize();
 
         mAdapter = new KomentarAdapter(komentarList);

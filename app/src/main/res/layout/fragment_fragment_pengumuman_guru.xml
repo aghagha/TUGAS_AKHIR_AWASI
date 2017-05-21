@@ -6,30 +6,57 @@
     tools:context="com.aghagha.tagg.FragmentPengumumanGuru"
     android:background="@color/colorGray">
     <LinearLayout
+        android:id="@+id/error"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
         <TextView
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="120dp"
+            android:text="Halaman tidak bisa dimuat, silahkan coba lagi."
+            android:textAlignment="center"/>
+        <Button
+            android:id="@+id/btReload"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="28dp"
-            android:paddingLeft="16dp"
-            android:paddingBottom="4dp"
-            android:gravity="bottom"
-            android:textSize="10sp"
-            android:textColor="@color/colorTextGray"
-            android:text="KELAS"/>
-        <Spinner
-            android:id="@+id/kelas"
-            android:layout_marginBottom="24dp"
-            style="@style/spinner_style"/>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvForumGuru"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.RecyclerView>
+            android:text="Muat Ulang"/>
     </LinearLayout>
-
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="28dp"
+                android:paddingLeft="16dp"
+                android:paddingBottom="4dp"
+                android:gravity="bottom"
+                android:textSize="10sp"
+                android:textColor="@color/colorTextGray"
+                android:text="KELAS"/>
+            <Spinner
+                android:id="@+id/kelas"
+                android:layout_marginBottom="24dp"
+                style="@style/spinner_style"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvForumGuru"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+            <include layout="@layout/kosong"></include>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fb_tambah"
         android:src="@drawable/ic_add_chat"
@@ -41,5 +68,4 @@
         app:layout_anchor="@id/rvForumGuru"
         android:scaleType="center"
         app:layout_anchorGravity="bottom|right|end"/>
-
 </FrameLayout>

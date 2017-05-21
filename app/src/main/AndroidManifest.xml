@@ -51,7 +51,8 @@
         <activity
             android:name=".InputNilaiActivity"
             android:label="Nilai Tugas" />
-        <activity android:name=".CreateTopikActivity" />
+        <activity android:name=".CreateTopikActivity"
+            android:label="Tambah Topik"/>
         <activity android:name=".TopikActivity">
             <intent-filter>
                 <action android:name="OPEN_THIS" />
