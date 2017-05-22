@@ -52,6 +52,12 @@ public class OrangTuaActivity extends AppCompatActivity {
         getMurid();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        getMurid();
+    }
+
     private void getMurid(){
         progressDialog.setMessage("Sedang memuat...");
         progressDialog.show();
@@ -66,6 +72,7 @@ public class OrangTuaActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
+                mAdapter.clear();
                 Log.d("INI RESPONSE",response);
                 progressDialog.dismiss();
                 try {

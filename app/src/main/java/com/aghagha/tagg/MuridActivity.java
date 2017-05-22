@@ -114,7 +114,13 @@ public class MuridActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.profile:
                 Intent intent = new Intent(MuridActivity.this, ProfilActivity.class);
+                intent.putExtra("idMurid","0");
                 startActivity(intent);
+                break;
+            case R.id.profileMurid:
+                Intent intentMurid = new Intent(MuridActivity.this, ProfilActivity.class);
+                intentMurid.putExtra("idMurid",session.getKeyMuridId());
+                startActivity(intentMurid);
                 break;
             case R.id.ganti:
                 finish();

@@ -38,12 +38,18 @@ public class ImageManager {
     public Uri filePath;
     public Bitmap bm;
     public String userChoosenTask;
+    private String idMurid;
 
     public static final int REQUEST_CAMERA = 321;
     public static final int SELECT_FILE = 12321;
 
     public ImageManager(Activity ac){
         this.ac = ac;
+        this.idMurid = "0";
+    }
+    public ImageManager(Activity ac, String idMurid){
+        this.ac = ac;
+        this.idMurid = idMurid;
     }
 
     public void selectImage(){
@@ -126,12 +132,13 @@ public class ImageManager {
                     .setInProgressMessage("Menyimpan gambar")
                     .setErrorMessage(pesanGagal)
                     .setCompletedMessage(pesanSukses);
-            String uploadId =
+            MultipartUploadRequest multipartUploadRequest=
                     new MultipartUploadRequest(context, NetworkUtils.post_profil_image)
                             .setMethod("POST")
                             .setUtf8Charset()
                             .addFileToUpload(filePath.getPath(), "image")
                             .addParameter("email",email)
+                            .addParameter("id_murid",idMurid)
                             .setNotificationConfig(notificationConfig)
                             .setMaxRetries(2)
                             .setDelegate(new UploadStatusDelegate() {
@@ -148,6 +155,7 @@ public class ImageManager {
                                 @Override
                                 public void onCompleted(Context context, UploadInfo uploadInfo, ServerResponse serverResponse) {
                                     try {
+                                        Log.d("UPLOAD",serverResponse.getBodyAsString());
                                         JSONObject jsonObject = new JSONObject(serverResponse.getBodyAsString());
                                         String code = jsonObject.get("code").toString();
                                         String message = jsonObject.get("status").toString();
@@ -162,8 +170,8 @@ public class ImageManager {
                                 public void onCancelled(Context context, UploadInfo uploadInfo) {
 
                                 }
-                            })
-                            .startUpload();
+                            });
+            multipartUploadRequest.startUpload();
         } catch (Exception exc) {
             Log.e("AndroidUploadService", exc.getMessage(), exc);
         }

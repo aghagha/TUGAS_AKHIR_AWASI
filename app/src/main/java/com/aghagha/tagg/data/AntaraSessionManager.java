@@ -90,6 +90,12 @@ public class AntaraSessionManager {
     public String getKeyEmail(){
         return pref.getString(KEY_EMAIL,null);
     }
+
+    public void setKeyEmail(String email){
+        editor.putString(KEY_EMAIL,email);
+        editor.apply();
+        return;
+    }
     public String getKeyId(){
         return pref.getString(KEY_USER_ID,null);
     }

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.aghagha.tagg.data.AntaraSessionManager;
 import com.aghagha.tagg.models.Murid;
+import com.aghagha.tagg.utilities.DownloadImageTask;
 import com.aghagha.tagg.utilities.NetworkUtils;
 
 import java.io.InputStream;
@@ -49,8 +50,10 @@ public class MuridAdapter extends RecyclerView.Adapter<MuridAdapter.ViewHolder>{
         holder.nama.setText(listMurid.get(position).getNama());
         holder.kelas.setText(listMurid.get(position).getKelas());
         holder.sekolah.setText(listMurid.get(position).getSekolah());
-        if(!gambar.equals(""))
-            new DownloadImageTask(holder.iv_gambar).equals(NetworkUtils.profil_image+gambar);
+        Log.d("GAMBAR MURID", gambar);
+        if(!gambar.equals("0")) {
+            new DownloadImageTask(holder.iv_gambar).execute(NetworkUtils.profil_image + gambar);
+        }
 
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,33 +88,9 @@ public class MuridAdapter extends RecyclerView.Adapter<MuridAdapter.ViewHolder>{
             nama = (TextView)itemView.findViewById(R.id.tv_nama);
             kelas = (TextView)itemView.findViewById(R.id.tv_kelas);
             sekolah = (TextView)itemView.findViewById(R.id.tv_sekolah);
-            iv_gambar = (CircleImageView)itemView.findViewById(R.id.iv_profil);
+            iv_gambar = (CircleImageView)itemView.findViewById(R.id.iv_gambar);
             layout = (LinearLayout)itemView.findViewById(R.id.layout);
         }
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
 }

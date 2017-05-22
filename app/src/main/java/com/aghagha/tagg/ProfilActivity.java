@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.LinearGradient;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -57,7 +58,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfilActivity extends AppCompatActivity implements FragmentGantiPassword.OnSubmitPassword {
-    String nama, nomor, email, alamat, gambar;
+    String nama, nomor, email, alamat, gambar, isMurid, oldEmail;
     EditText et_nama, et_nomor, et_email, et_alamat, et_password, et_password2;
     Button edit, editPW, save;
     CircleImageView iv_gambar, bt_pp;
@@ -80,8 +81,11 @@ public class ProfilActivity extends AppCompatActivity implements FragmentGantiPa
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        Intent intent = getIntent();
+        isMurid = intent.getStringExtra("idMurid");
+
         pDialog = new ProgressDialog(this);
-        imageManager = new ImageManager(this);
+        imageManager = new ImageManager(this, isMurid);
 
         session = new AntaraSessionManager(this);
 
@@ -130,14 +134,23 @@ public class ProfilActivity extends AppCompatActivity implements FragmentGantiPa
         save.setOnClickListener(operation);
         bt_pp.setOnClickListener(operation);
 
+        if(!isMurid.equals("0")){
+            editPW.setVisibility(View.GONE);
+        }
         setForm();
+
         toggleForm(false);
     }
 
     private void setForm() {
         pDialog.setMessage("Sedang memuat...");
         showDialog();
-        VolleyUtil volleyUtil = new VolleyUtil("req_detail_user",this, NetworkUtils.userdetail+"/"+session.getKeyEmail());
+        VolleyUtil volleyUtil;
+        if(!isMurid.equals("0")){
+            volleyUtil = new VolleyUtil("req_detail_user",this, NetworkUtils.userdetail+"/"+session.getKeyEmail()+"/"+session.getKeyMuridId());
+        } else {
+            volleyUtil = new VolleyUtil("req_detail_user",this, NetworkUtils.userdetail+"/"+session.getKeyEmail());
+        }
         volleyUtil.SendRequestGET(new VolleyUtil.VolleyResponseListener() {
             @Override
             public void onError(VolleyError error) {
@@ -156,6 +169,7 @@ public class ProfilActivity extends AppCompatActivity implements FragmentGantiPa
                     nama = user.get("nama").toString();
                     nomor = user.get("telepon").toString();
                     email = user.get("email").toString();
+                    oldEmail = email;
                     alamat = user.get("alamat").toString();
                     gambar = jsonObject.getString("gambar");
                     if(!gambar.equals("")){
@@ -193,6 +207,7 @@ public class ProfilActivity extends AppCompatActivity implements FragmentGantiPa
         Map<String,String> params = new HashMap<>();
         params.put("nama",_nama);
         params.put("email",_email);
+        params.put("old_email",oldEmail);
         params.put("telepon",_nomor);
         params.put("alamat",_alamat);
         volleyUtil.SendRequestPOST(params, new VolleyUtil.VolleyResponseListener() {
@@ -211,7 +226,21 @@ public class ProfilActivity extends AppCompatActivity implements FragmentGantiPa
                     String code = jsonObject.get("code").toString();
                     String message = jsonObject.get("message").toString();
                     Toast.makeText(ProfilActivity.this, message, Toast.LENGTH_SHORT).show();
-                    if(code.equals("0")) setForm(nama,email,nomor,alamat);
+                    if(code.equals("0")) {
+                        setForm(nama,email,nomor,alamat);
+                        Log.d("GANTI PROFIL",message);
+                    }
+                    else if(code.equals("1")){
+                        nama = et_nama.getText().toString();
+                        email = et_email.getText().toString();
+                        if(oldEmail.equals(session.getKeyEmail())){
+                            session.setKeyEmail(email);
+                        }
+                        oldEmail = email;
+                        nomor = et_nomor.getText().toString();
+                        alamat = et_alamat.getText().toString();
+
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
