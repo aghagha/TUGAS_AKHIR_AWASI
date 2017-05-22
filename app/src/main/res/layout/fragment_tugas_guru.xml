@@ -13,7 +13,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,13 +31,13 @@
                 android:layout_marginBottom="24dp"
                 style="@style/spinner_style">
             </Spinner>
+            <include layout="@layout/kosong"></include>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvTugasGuru"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_anchor="@id/kelas">
             </android.support.v7.widget.RecyclerView>
-            <include layout="@layout/kosong"></include>
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton

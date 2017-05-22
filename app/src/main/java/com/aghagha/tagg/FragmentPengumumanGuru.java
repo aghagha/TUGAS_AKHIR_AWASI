@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
@@ -38,7 +39,7 @@ import java.util.List;
 
 public class FragmentPengumumanGuru extends Fragment {
     private LinearLayout errorLayout, kosong;
-    private NestedScrollView layout;
+    private CoordinatorLayout layout;
     private Button btReload;
     private RecyclerView mRecyclerView;
     private FloatingActionButton fb_tambah;
@@ -109,7 +110,7 @@ public class FragmentPengumumanGuru extends Fragment {
         drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         fb_tambah.setBackgroundDrawable(drawable);
 
-        layout = (NestedScrollView) view.findViewById(R.id.layout);
+        layout = (CoordinatorLayout) view.findViewById(R.id.layout);
         layout.setVisibility(View.GONE);
 
         kosong = (LinearLayout)view.findViewById(R.id.empty);
@@ -210,7 +211,8 @@ public class FragmentPengumumanGuru extends Fragment {
                             firstTimeLoad = false;
                         }
                     } else {
-                        kosong.setVisibility(View.VISIBLE);
+                        layout.setVisibility(View.GONE);
+                        errorLayout.setVisibility(View.VISIBLE);
                     }
                     layout.setVisibility(View.VISIBLE);
                     errorLayout.setVisibility(View.GONE);

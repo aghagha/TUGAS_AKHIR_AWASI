@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.aghagha.tagg.data.AntaraSessionManager;
@@ -28,6 +31,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentPengumumanMurid extends Fragment {
+    private LinearLayout errorLayout, kosong;
+    private NestedScrollView layout;
+    private Button btReload;
     private RecyclerView mRecyclerView;
 
     private ForumGuruAdapter mAdapter;
@@ -68,10 +74,24 @@ public class FragmentPengumumanMurid extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.hasFixedSize();
 
         mAdapter=new ForumGuruAdapter(topikList);
         mRecyclerView.setAdapter(mAdapter);
+
+        layout = (NestedScrollView) view.findViewById(R.id.layout);
+        layout.setVisibility(View.GONE);
+
+        kosong = (LinearLayout)view.findViewById(R.id.empty);
+        errorLayout= (LinearLayout)view.findViewById(R.id.error);
+        btReload = (Button)view.findViewById(R.id.btReload);
+        btReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getTopikList();
+            }
+        });
 
         getTopikList();
 
@@ -91,8 +111,8 @@ public class FragmentPengumumanMurid extends Fragment {
         volleyUtil.SendRequestGET(new VolleyUtil.VolleyResponseListener() {
             @Override
             public void onError(VolleyError error) {
-                Toast.makeText(getActivity(),
-                        "Halaman gagal dimuat, coba lagi", Toast.LENGTH_LONG).show();
+                layout.setVisibility(View.GONE);
+                errorLayout.setVisibility(View.VISIBLE);
                 progressDialog.dismiss();
             }
 
@@ -107,6 +127,7 @@ public class FragmentPengumumanMurid extends Fragment {
                     if (code.equals("1")) {
                         JSONArray listTopik = jsonObject.getJSONArray("topik");
                         if (listTopik.length() > 0) {
+                            kosong.setVisibility(View.GONE);
                             for (int i = 0; i < listTopik.length(); i++) {
                                 JSONObject topik = listTopik.getJSONObject(i);
                                 Topik data = new Topik(topik.getString("id"),
@@ -119,9 +140,14 @@ public class FragmentPengumumanMurid extends Fragment {
                                 topikList.add(data);
                             }
                             mAdapter.notifyDataSetChanged();
+                            layout.setVisibility(View.VISIBLE);
+                            errorLayout.setVisibility(View.GONE);
+                        } else {
+                            kosong.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        Toast.makeText(context, "Halaman gagal dimuat...", Toast.LENGTH_SHORT).show();
+                        layout.setVisibility(View.GONE);
+                        errorLayout.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
