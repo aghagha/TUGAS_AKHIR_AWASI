@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.aghagha.tagg.TugasMuridFragment">
-
+    <include layout="@layout/error_layout"></include>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvTugasMurid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_anchor="@id/kelas">
     </android.support.v7.widget.RecyclerView>
-
+    <include layout="@layout/kosong"></include>
 </FrameLayout>

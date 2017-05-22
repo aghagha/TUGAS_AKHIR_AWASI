@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.aghagha.tagg.data.AntaraSessionManager;
@@ -28,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TugasMuridFragment extends Fragment {
+    private LinearLayout errorLayout, kosong;
+    private Button btReload;
     private RecyclerView rvTugasMurid;
 
     private List<Tugas> tugasList;
@@ -77,6 +82,16 @@ public class TugasMuridFragment extends Fragment {
         mAdapter = new TugasMuridAdapter(tugasList);
         rvTugasMurid.setAdapter(mAdapter);
 
+        kosong = (LinearLayout)view.findViewById(R.id.empty);
+        errorLayout= (LinearLayout)view.findViewById(R.id.error);
+        btReload = (Button)view.findViewById(R.id.btReload);
+        btReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getTugasList();
+            }
+        });
+
         getTugasList();
 
         return view;
@@ -90,8 +105,8 @@ public class TugasMuridFragment extends Fragment {
         volleyUtil.SendRequestGET(new VolleyUtil.VolleyResponseListener() {
             @Override
             public void onError(VolleyError error) {
-                Toast.makeText(getActivity(),
-                        "Halaman gagal dimuat, coba lagi", Toast.LENGTH_LONG).show();
+                rvTugasMurid.setVisibility(View.GONE);
+                errorLayout.setVisibility(View.VISIBLE);
                 hideDialog();
             }
 
@@ -109,6 +124,7 @@ public class TugasMuridFragment extends Fragment {
 
                         JSONArray listTugas = jsonObject.getJSONArray("tugas");
                         if(listTugas.length()>0){
+                            kosong.setVisibility(View.GONE);
                             for(int i = 0; i < listTugas.length(); i++){
                                 JSONObject tugas = listTugas.getJSONObject(i);
                                 Tugas data = new Tugas(tugas.getInt("id"),
@@ -122,8 +138,13 @@ public class TugasMuridFragment extends Fragment {
                                         tugas.getBoolean("telat"));
                                 tugasList.add(data);
                             }
+                        } else {
+                            kosong.setVisibility(View.VISIBLE);
                         }
                         mAdapter.notifyDataSetChanged();
+                    } else {
+                        rvTugasMurid.setVisibility(View.GONE);
+                        errorLayout.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

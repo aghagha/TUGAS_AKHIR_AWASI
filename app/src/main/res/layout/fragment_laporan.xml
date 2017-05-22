@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.aghagha.tagg.LaporanFragment">
-
+    <include layout="@layout/error_layout"></include>
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -25,5 +26,6 @@
             android:id="@+id/rv_laporan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <include layout="@layout/kosong"></include>
     </LinearLayout>
 </FrameLayout>

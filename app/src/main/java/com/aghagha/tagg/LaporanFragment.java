@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -31,6 +34,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class LaporanFragment extends Fragment {
+    private LinearLayout errorLayout, kosong;
+    private Button btReload;
+    private LinearLayout layout;
     private RecyclerView rvLaporan;
     private Spinner mapelSpinner;
 
@@ -84,6 +90,20 @@ public class LaporanFragment extends Fragment {
 
         mAdapter = new LaporanAdapter(laporanList);
         rvLaporan.setAdapter(mAdapter);
+
+        layout = (LinearLayout) view.findViewById(R.id.layout);
+        layout.setVisibility(View.GONE);
+
+        kosong = (LinearLayout)view.findViewById(R.id.empty);
+        errorLayout= (LinearLayout)view.findViewById(R.id.error);
+        btReload = (Button)view.findViewById(R.id.btReload);
+        btReload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getLaporan();
+            }
+        });
+
         getLaporan();
 
         mapelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -114,6 +134,8 @@ public class LaporanFragment extends Fragment {
         volleyUtil.SendRequestGET(new VolleyUtil.VolleyResponseListener() {
             @Override
             public void onError(VolleyError error) {
+                layout.setVisibility(View.GONE);
+                errorLayout.setVisibility(View.VISIBLE);
                 progressDialog.dismiss();
             }
 
@@ -128,6 +150,7 @@ public class LaporanFragment extends Fragment {
                         JSONArray listLaporan = jsonObject.getJSONArray("tugas");
                         Log.d("LAPORAN",response);
                         if(listLaporan.length()>0){
+                            kosong.setVisibility(View.GONE);
                             Laporan header = new Laporan(0,"","","Nil","Rata","Max");
                             laporanList.add(header);
                             for(int i = 0; i < listLaporan.length(); i++){
@@ -157,9 +180,14 @@ public class LaporanFragment extends Fragment {
                                 idMapelTerpilih = spinnerMap.get(0);
                                 mapelTerpilih = mapelAdapter.getItem(0);
                             }
+                        } else {
+                            kosong.setVisibility(View.VISIBLE);
                         }
+                        layout.setVisibility(View.VISIBLE);
+                        errorLayout.setVisibility(View.GONE);
                     } else {
-                        Toast.makeText(getActivity(), "Gagal memuat laporan...", Toast.LENGTH_SHORT).show();
+                        layout.setVisibility(View.GONE);
+                        errorLayout.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
