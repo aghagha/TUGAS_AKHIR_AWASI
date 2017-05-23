@@ -136,16 +136,6 @@ public class AntaraSessionManager {
                 }
             }
         });
-//        editor.clear();
-//        if(!success[0])this.setDeviceToken(oldToken);
-//        editor.commit();
-
-        // After logout redirect user to Login Activity
-//        Intent intent = new Intent(_context, LoginActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//
-//        // Staring Login Activity
-//        _context.startActivity(intent);
     }
 
     public String getKeyEmail(){

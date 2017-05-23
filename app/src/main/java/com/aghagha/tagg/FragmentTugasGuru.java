@@ -190,7 +190,6 @@ public class FragmentTugasGuru extends Fragment {
             public void onResponse(String response) {
                 String mResponse = response;
                 hideDialog();
-                Log.d("####",mResponse);
                 mAdapter.clear();
                 try {
                     JSONObject jsonObject = new JSONObject(response);

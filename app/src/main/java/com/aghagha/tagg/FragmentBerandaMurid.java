@@ -151,14 +151,13 @@ public class FragmentBerandaMurid extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        getBeritaList();
+//        getBeritaList();
     }
 
     private void getBeritaList() {
         progressDialog.setMessage("Sedang memuat...");
         progressDialog.show();
         VolleyUtil volleyUtil = new VolleyUtil("req_berita_list", getActivity(), NetworkUtils.berita_list + '/' + userId);
-        final String[] mResponse = new String[1];
         volleyUtil.SendRequestGET(new VolleyUtil.VolleyResponseListener() {
             @Override
             public void onError(VolleyError error) {
@@ -169,7 +168,7 @@ public class FragmentBerandaMurid extends Fragment {
 
             @Override
             public void onResponse(String response) {
-                mResponse[0] = response;
+                Log.d("BERITA",response);
                 progressDialog.dismiss();
                 mAdapter.clear();
                 jadwalAdapter.clear();
@@ -198,7 +197,6 @@ public class FragmentBerandaMurid extends Fragment {
                         JSONArray listBerita = jsonObject.getJSONArray("berita");
                         if(listBerita.length()>0){
                             empty.setVisibility(View.GONE);
-                            Log.d("jumlah berita", String.valueOf(listBerita.length()));
                             for(int i = 0; i < listBerita.length(); i++){
                                 JSONObject berita = listBerita.getJSONObject(i);
                                 Berita data = new Berita(berita.getInt("id_t_berita"),

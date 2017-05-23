@@ -66,6 +66,7 @@ public class BerandaGuruAdapter extends RecyclerView.Adapter<BerandaGuruAdapter.
         } else {
             holder.gambar.setVisibility(View.GONE);
         }
+
         if(!lampiran.equals("null")) {
             holder.lampiran.setText(lampiran);
         } else holder.lampiran.setHeight(20);

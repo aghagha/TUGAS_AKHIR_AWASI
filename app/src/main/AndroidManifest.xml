@@ -75,7 +75,13 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".BeritaActivity" />
+        <activity android:name=".BeritaActivity">
+            <intent-filter>
+                <action android:name="OPEN_BERITA" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".DeleteTokenService"

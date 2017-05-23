@@ -92,13 +92,13 @@ public class BeritaActivity extends AppCompatActivity {
         String gambar_ = intent.getStringExtra("gambar");
         lampiran_ = intent.getStringExtra("lampiran");
 
-        if(!gambar_.equals("null")){
+        if(intent.hasExtra("gambar") && (!gambar_.equals("null"))){
             new DownloadImageTask(gambar).execute(NetworkUtils.berita_image+gambar_);
         } else {
             gambar.setVisibility(View.GONE);
         }
 
-        if(!lampiran_.equals("null")) {
+        if(intent.hasExtra("lampiran") && (!lampiran_.equals("null"))) {
             lampiran.setText(lampiran_);
             final DownloadTask[] downloadTask = new DownloadTask[1];
             layout2.setOnClickListener(new View.OnClickListener() {
