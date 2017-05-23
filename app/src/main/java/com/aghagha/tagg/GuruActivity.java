@@ -2,6 +2,7 @@ package com.aghagha.tagg;
 
 import android.content.Context;
 import android.content.Intent;
+import android.gesture.GestureUtils;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -43,8 +44,8 @@ public class GuruActivity extends AppCompatActivity {
         session = new AntaraSessionManager(getApplicationContext());
 
         if(!session.isLoggedIn()){
-            session.logoutUser();
-            finish();
+            session.logoutUser(GuruActivity.this);
+//            finish();
         }
 
         final Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -120,8 +121,8 @@ public class GuruActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.logout:
-                session.logoutUser();
-                finish();
+                session.logoutUser(GuruActivity.this);
+//                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -1,14 +1,24 @@
 package com.aghagha.tagg.data;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.aghagha.tagg.LoginActivity;
+import com.aghagha.tagg.utilities.NetworkUtils;
+import com.aghagha.tagg.utilities.VolleyUtil;
+import com.android.volley.VolleyError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by aghagha on 20/04/2017.
@@ -30,6 +40,7 @@ public class AntaraSessionManager {
     public static final String KEY_TIPE_USER_ID = "userTipeId";
     public static final String KEY_NAME = "userName";
     public static final String KEY_EMAIL = "userEmail";
+    public static final String DEVICE_TOKEN = "deviceToken";
 
     public AntaraSessionManager(Context context) {
         this._context = context;
@@ -49,6 +60,11 @@ public class AntaraSessionManager {
 
     public void setMurid(String muridId){
         editor.putString(KEY_MURID_ID,muridId);
+        editor.commit();
+    }
+
+    public void setDeviceToken(String token){
+        editor.putString(DEVICE_TOKEN,token);
         editor.commit();
     }
 
@@ -73,22 +89,70 @@ public class AntaraSessionManager {
         return user;
     }
 
-    public void logoutUser(){
+    public void logoutUser(final Context ctx){
         // Clearing all data from Shared Preferences
-        editor.clear();
-        editor.commit();
+        final ProgressDialog progressDialog = new ProgressDialog(ctx);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Mencoba logout...");
+        progressDialog.show();
+
+        String oldToken = this.getDeviceToken();
+        final Boolean[] success = {false};
+        VolleyUtil volleyUtil = new VolleyUtil("req_login",_context, NetworkUtils.token);
+        Map<String,String> param = new HashMap<>();
+        param.put("old_token",oldToken);
+        volleyUtil.SendRequestPOST(param,new VolleyUtil.VolleyResponseListener() {
+            @Override
+            public void onError(VolleyError error) {
+                progressDialog.dismiss();
+                Toast.makeText(_context, "Logout gagal...", Toast.LENGTH_SHORT).show();
+                Log.d("FireBaseInstantID","Failed to delete old token");
+                error.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(String response) {
+                progressDialog.dismiss();
+                Log.d("delete token","new delete token");
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.getString("code").equals("0")){
+                        Toast.makeText(_context, "Logout gagal...", Toast.LENGTH_SHORT).show();
+                        Log.d("FireBaseInstantID","Failed to delete old token");
+                    } else {
+                        Log.d("FireBaseInstantID","Token deleted");
+                        success[0] = true;
+                        editor.clear();
+                        editor.commit();
+                        Intent intent = new Intent(_context, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                        // Starting Login Activity
+                        _context.startActivity(intent);
+                        ((Activity)ctx).finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+//        editor.clear();
+//        if(!success[0])this.setDeviceToken(oldToken);
+//        editor.commit();
 
         // After logout redirect user to Login Activity
-        Intent intent = new Intent(_context, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-        // Staring Login Activity
-        _context.startActivity(intent);
-
+//        Intent intent = new Intent(_context, LoginActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//
+//        // Staring Login Activity
+//        _context.startActivity(intent);
     }
 
     public String getKeyEmail(){
         return pref.getString(KEY_EMAIL,null);
+    }
+    public String getDeviceToken(){
+        return pref.getString(DEVICE_TOKEN,"kosong");
     }
 
     public void setKeyEmail(String email){

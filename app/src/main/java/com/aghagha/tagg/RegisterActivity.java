@@ -49,13 +49,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         session = new AntaraSessionManager(getApplicationContext());
 
-        if (session.isLoggedIn()) {
-            // User is already logged in. Take him to main activity
-            Intent intent = new Intent(RegisterActivity.this,
-                    MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
+//        if (session.isLoggedIn()) {
+//            // User is already logged in. Take him to main activity
+//            Intent intent = new Intent(RegisterActivity.this,
+//                    MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
     }
 
     View.OnClickListener operation = new View.OnClickListener() {

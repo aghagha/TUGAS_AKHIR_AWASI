@@ -31,7 +31,6 @@
             android:label="@string/title_activity_login"
             android:noHistory="true"
             android:theme="@style/WelcomeScreen" />
-        <activity android:name=".MainActivity" />
         <activity
             android:name=".RegisterActivity"
             android:excludeFromRecents="true"
@@ -51,11 +50,13 @@
         <activity
             android:name=".InputNilaiActivity"
             android:label="Nilai Tugas" />
-        <activity android:name=".CreateTopikActivity"
-            android:label="Tambah Topik"/>
+        <activity
+            android:name=".CreateTopikActivity"
+            android:label="Tambah Topik" />
         <activity android:name=".TopikActivity">
             <intent-filter>
                 <action android:name="OPEN_THIS" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -74,7 +75,11 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".BeritaActivity"></activity>
+        <activity android:name=".BeritaActivity" />
+
+        <service
+            android:name=".DeleteTokenService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

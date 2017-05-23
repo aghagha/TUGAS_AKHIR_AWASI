@@ -142,6 +142,8 @@ public class TugasMuridFragment extends Fragment {
                             kosong.setVisibility(View.VISIBLE);
                         }
                         mAdapter.notifyDataSetChanged();
+                        rvTugasMurid.setVisibility(View.VISIBLE);
+                        errorLayout.setVisibility(View.GONE);
                     } else {
                         rvTugasMurid.setVisibility(View.GONE);
                         errorLayout.setVisibility(View.VISIBLE);

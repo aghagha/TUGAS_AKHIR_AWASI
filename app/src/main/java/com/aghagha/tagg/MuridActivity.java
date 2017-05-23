@@ -40,8 +40,8 @@ public class MuridActivity extends AppCompatActivity {
         session = new AntaraSessionManager(getApplicationContext());
 
         if(!session.isLoggedIn()){
-            session.logoutUser();
-            finish();
+            session.logoutUser(MuridActivity.this);
+//            finish();
         }
         intent = getIntent();
         userId = intent.getStringExtra("id");
@@ -126,8 +126,7 @@ public class MuridActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.logout:
-                session.logoutUser();
-                finish();
+                session.logoutUser(MuridActivity.this);
                 break;
         }
         return super.onOptionsItemSelected(item);

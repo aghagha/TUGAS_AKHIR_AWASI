@@ -112,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                         String userTipe = user.getString("id_tipe_user");
 
                         session.createLoginSession(userId,userTipe,userNama,userEmail);
+                        startService(new Intent(getBaseContext(), DeleteTokenService.class));
 
                         if(userTipe.equals("4")){
                             Intent intent = new Intent(LoginActivity.this,OrangTuaActivity.class);

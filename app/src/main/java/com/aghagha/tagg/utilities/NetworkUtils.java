@@ -11,6 +11,7 @@ public class NetworkUtils {
     public static final String serverDir = ip+"/bismillahTAselesai/public/uploads/";
     //test login
     public static final String login = server + "login";
+    public static final String token = server + "token";
     public static final String register = server + "register";
     public static final String userdetail = server + "userDetail";
     public static final String userpass = server + "userPass";
