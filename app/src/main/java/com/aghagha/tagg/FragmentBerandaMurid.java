@@ -127,7 +127,7 @@ public class FragmentBerandaMurid extends Fragment {
         tv_sekolah.setText(bundle.getString("sekolah"));
         tv_kelas.setText(bundle.getString("kelas"));
         String gambar = bundle.getString("gambar");
-        if(!gambar.equals("")){
+        if(!gambar.equals("0")){
             new DownloadImageTask(iv_profile).execute(NetworkUtils.profil_image+gambar);
         }
 

@@ -82,7 +82,9 @@ public class ProfilActivity extends AppCompatActivity implements FragmentGantiPa
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent intent = getIntent();
+        if(intent.hasExtra("idMurid"))
         isMurid = intent.getStringExtra("idMurid");
+        else isMurid = "0";
 
         pDialog = new ProgressDialog(this);
         imageManager = new ImageManager(this, isMurid);

@@ -39,7 +39,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             NotificationCompat.Builder mBuilder =
                     (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.drawable.ic_chats)
+                            .setSmallIcon(R.drawable.ic_notification)
                             .setContentTitle(remoteMessage.getNotification().getTitle())
                             .setContentText(remoteMessage.getNotification().getBody())
                             .setAutoCancel(true)

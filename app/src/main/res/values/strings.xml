@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Antara</string>
+    <string name="app_name">Awasi</string>
     <string name="title_activity_login">Sign In</string>
     <string name="prompt_user_email">Email</string>
     <string name="prompt_user_password">Password</string>
@@ -10,7 +10,7 @@
     <string name="prompt_user_name">Nama Pengguna</string>
     <string name="prompt_user_phone">No. Telepon</string>
     <string name="prompt_user_password2">Konfirmasi Password</string>
-    <string name="login_from_register">Sudah punya akun?</string>
+    <string name="login_from_register"><u>Sudah punya akun?</u></string>
     <string name="register_button">Daftar</string>
     <string name="kelas_prompt">Pilih kelas</string>
 

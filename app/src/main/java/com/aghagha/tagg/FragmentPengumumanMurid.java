@@ -125,6 +125,8 @@ public class FragmentPengumumanMurid extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     String code = jsonObject.getString("code");
                     if (code.equals("1")) {
+                        errorLayout.setVisibility(View.GONE);
+
                         JSONArray listTopik = jsonObject.getJSONArray("topik");
                         if (listTopik.length() > 0) {
                             kosong.setVisibility(View.GONE);
@@ -141,7 +143,6 @@ public class FragmentPengumumanMurid extends Fragment {
                             }
                             mAdapter.notifyDataSetChanged();
                             layout.setVisibility(View.VISIBLE);
-                            errorLayout.setVisibility(View.GONE);
                         } else {
                             kosong.setVisibility(View.VISIBLE);
                         }

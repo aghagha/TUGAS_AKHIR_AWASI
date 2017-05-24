@@ -35,15 +35,12 @@
     <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">@color/colorIcons</item>
+        <item name="android:typeface">serif</item>
     </style>
 
     <style name="WelcomeScreen" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/login_background</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
     <style name="spinner_style">

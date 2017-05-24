@@ -248,7 +248,7 @@ public class BeritaActivity extends AppCompatActivity {
             Notification noti = new NotificationCompat.Builder(context)
                     .setContentTitle("Unduhan selesai")
                     .setContentText(lampiran_)
-                    .setSmallIcon(R.drawable.ic_home)
+                    .setSmallIcon(R.drawable.ic_notification)
                     .setContentIntent(pIntent).build();
 
             noti.flags |= Notification.FLAG_AUTO_CANCEL;

@@ -10,6 +10,10 @@ public class MyApp extends Application {
 
     @Override
     public void onCreate() {
-        TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/Lato-Regular.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
+        super.onCreate();
+        TypefaceUtil.setDefaultFont(this, "DEFAULT", "fonts/Lato-Regular.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
+        TypefaceUtil.setDefaultFont(this, "MONOSPACE", "fonts/Lato-Regular.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
+        TypefaceUtil.setDefaultFont(this, "SERIF", "fonts/Lato-Regular.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
+        TypefaceUtil.setDefaultFont(this, "SANS_SERIF", "fonts/Lato-Regular.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
     }
 }
