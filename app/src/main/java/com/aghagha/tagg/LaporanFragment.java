@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aghagha.tagg.data.AntaraSessionManager;
@@ -39,6 +40,7 @@ public class LaporanFragment extends Fragment {
     private LinearLayout layout;
     private RecyclerView rvLaporan;
     private Spinner mapelSpinner;
+    private TextView tvlabel;
 
     private List<Laporan> laporanList;
 
@@ -91,8 +93,9 @@ public class LaporanFragment extends Fragment {
         mAdapter = new LaporanAdapter(laporanList);
         rvLaporan.setAdapter(mAdapter);
 
+        tvlabel = (TextView)view.findViewById(R.id.tvlabel);
+
         layout = (LinearLayout) view.findViewById(R.id.layout);
-        layout.setVisibility(View.GONE);
 
         kosong = (LinearLayout)view.findViewById(R.id.empty);
         errorLayout= (LinearLayout)view.findViewById(R.id.error);
@@ -147,44 +150,52 @@ public class LaporanFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     String code = jsonObject.getString("code");
                     if(code.equals("1")){
-                        JSONArray listLaporan = jsonObject.getJSONArray("tugas");
-                        Log.d("LAPORAN",response);
-                        if(listLaporan.length()>0){
-                            kosong.setVisibility(View.GONE);
-                            Laporan header = new Laporan(0,"","","Nil","Rata","Max");
-                            laporanList.add(header);
-                            for(int i = 0; i < listLaporan.length(); i++){
-                                JSONObject tugas = listLaporan.getJSONObject(i);
-                                Laporan data = new Laporan(tugas.getInt("id"),
-                                        tugas.getString("judul"),
-                                        tugas.getString("date"),
-                                        tugas.getString("nilai"),
-                                        tugas.getString("mean"),
-                                        tugas.getString("max"));
-                                laporanList.add(data);
-                            }
-                            mAdapter.notifyDataSetChanged();
+                        errorLayout.setVisibility(View.GONE);
+                        layout.setVisibility(View.VISIBLE);
 
-                            if(firstTimeLoad){
-                                JSONArray mapelList = jsonObject.getJSONArray("mapel");
-                                String[] spinnerArray = new String[mapelList.length()+1];
-                                spinnerMap.put(0, "0");
-                                spinnerArray[0] = "Semua mata pelajaran";
-                                for (int i = 1; i <= mapelList.length(); i++) {
-                                    JSONObject kelas = mapelList.getJSONObject(i-1);
-                                    spinnerMap.put(i, kelas.getString("id"));
-                                    spinnerArray[i] = kelas.getString("nama");
+                        JSONArray listLaporan = jsonObject.getJSONArray("tugas");
+                        JSONArray mapelList = jsonObject.getJSONArray("mapel");
+
+                        Log.d("LAPORAN",response);
+                        if(mapelList.length()>0) {
+                            setEmpty(false);
+
+                            if (listLaporan.length() > 0) {
+                                kosong.setVisibility(View.GONE);
+                                Laporan header = new Laporan(0, "", "", "Nil", "Rata", "Max");
+                                laporanList.add(header);
+                                for (int i = 0; i < listLaporan.length(); i++) {
+                                    JSONObject tugas = listLaporan.getJSONObject(i);
+                                    Laporan data = new Laporan(tugas.getInt("id"),
+                                            tugas.getString("judul"),
+                                            tugas.getString("date"),
+                                            tugas.getString("nilai"),
+                                            tugas.getString("mean"),
+                                            tugas.getString("max"));
+                                    laporanList.add(data);
                                 }
-                                mapelAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-                                mapelSpinner.setAdapter(mapelAdapter);
-                                idMapelTerpilih = spinnerMap.get(0);
-                                mapelTerpilih = mapelAdapter.getItem(0);
+                                mAdapter.notifyDataSetChanged();
+
+                                if (firstTimeLoad) {
+                                    String[] spinnerArray = new String[mapelList.length() + 1];
+                                    spinnerMap.put(0, "0");
+                                    spinnerArray[0] = "Semua mata pelajaran";
+                                    for (int i = 1; i <= mapelList.length(); i++) {
+                                        JSONObject kelas = mapelList.getJSONObject(i - 1);
+                                        spinnerMap.put(i, kelas.getString("id"));
+                                        spinnerArray[i] = kelas.getString("nama");
+                                    }
+                                    mapelAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinnerArray);
+                                    mapelSpinner.setAdapter(mapelAdapter);
+                                    idMapelTerpilih = spinnerMap.get(0);
+                                    mapelTerpilih = mapelAdapter.getItem(0);
+                                }
+                            } else {
+                                kosong.setVisibility(View.VISIBLE);
                             }
                         } else {
-                            kosong.setVisibility(View.VISIBLE);
+                            setEmpty(true);
                         }
-                        layout.setVisibility(View.VISIBLE);
-                        errorLayout.setVisibility(View.GONE);
                     } else {
                         layout.setVisibility(View.GONE);
                         errorLayout.setVisibility(View.VISIBLE);
@@ -195,6 +206,18 @@ public class LaporanFragment extends Fragment {
 
             }
         });
+    }
+
+    private void setEmpty(Boolean empty){
+        if(empty){
+            tvlabel.setVisibility(View.GONE);
+            mapelSpinner.setVisibility(View.GONE);
+            kosong.setVisibility(View.VISIBLE);
+        } else {
+            tvlabel.setVisibility(View.VISIBLE);
+            mapelSpinner.setVisibility(View.VISIBLE);
+            kosong.setVisibility(View.GONE);
+        }
     }
 
 }

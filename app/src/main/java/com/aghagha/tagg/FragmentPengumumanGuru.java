@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aghagha.tagg.data.AntaraSessionManager;
@@ -39,6 +40,7 @@ import java.util.List;
 
 public class FragmentPengumumanGuru extends Fragment {
     private LinearLayout errorLayout, kosong;
+    private TextView tvlabel;
     private CoordinatorLayout layout;
     private Button btReload;
     private RecyclerView mRecyclerView;
@@ -94,6 +96,8 @@ public class FragmentPengumumanGuru extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fragment_pengumuman_guru, container, false);
         mRecyclerView = (RecyclerView)view.findViewById(R.id.rvForumGuru);
         topikList = new ArrayList<>();
+
+        tvlabel = (TextView)view.findViewById(R.id.tvlabel);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -199,16 +203,22 @@ public class FragmentPengumumanGuru extends Fragment {
                         if(firstTimeLoad){
                             JSONArray kelasArray = jsonObject.getJSONArray("kelas");
                             String[] spinnerArray = new String[kelasArray.length()];
-                            for (int i = 0; i<kelasArray.length();i++){
-                                JSONObject kelas = kelasArray.getJSONObject(i);
-                                spinnerMap.put(i, kelas.getString("id"));
-                                spinnerArray[i] = kelas.getString("nama");
-                            }
-                            kelasAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-                            kelasSpinner.setAdapter(kelasAdapter);
+                            if(kelasArray.length()>0) {
+                                setEmpty(false);
 
-                            idKelasTerpilih = spinnerMap.get(0);
-                            firstTimeLoad = false;
+                                for (int i = 0; i < kelasArray.length(); i++) {
+                                    JSONObject kelas = kelasArray.getJSONObject(i);
+                                    spinnerMap.put(i, kelas.getString("id"));
+                                    spinnerArray[i] = kelas.getString("nama");
+                                }
+                                kelasAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinnerArray);
+                                kelasSpinner.setAdapter(kelasAdapter);
+
+                                idKelasTerpilih = spinnerMap.get(0);
+                                firstTimeLoad = false;
+                            } else {
+                                setEmpty(true);
+                            }
                         }
                     } else {
                         layout.setVisibility(View.GONE);
@@ -221,6 +231,20 @@ public class FragmentPengumumanGuru extends Fragment {
                 }
             }
         });
+    }
+
+    private void setEmpty(Boolean empty){
+        if(empty){
+            tvlabel.setVisibility(View.GONE);
+            kelasSpinner.setVisibility(View.GONE);
+            fb_tambah.setVisibility(View.GONE);
+            kosong.setVisibility(View.VISIBLE);
+        } else {
+            tvlabel.setVisibility(View.VISIBLE);
+            kelasSpinner.setVisibility(View.VISIBLE);
+            fb_tambah.setVisibility(View.VISIBLE);
+            kosong.setVisibility(View.GONE);
+        }
     }
 
 

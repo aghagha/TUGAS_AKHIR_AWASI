@@ -126,10 +126,11 @@ public class FragmentPengumumanMurid extends Fragment {
                     String code = jsonObject.getString("code");
                     if (code.equals("1")) {
                         errorLayout.setVisibility(View.GONE);
+                        kosong.setVisibility(View.GONE);
+                        layout.setVisibility(View.VISIBLE);
 
                         JSONArray listTopik = jsonObject.getJSONArray("topik");
                         if (listTopik.length() > 0) {
-                            kosong.setVisibility(View.GONE);
                             for (int i = 0; i < listTopik.length(); i++) {
                                 JSONObject topik = listTopik.getJSONObject(i);
                                 Topik data = new Topik(topik.getString("id"),
@@ -142,12 +143,13 @@ public class FragmentPengumumanMurid extends Fragment {
                                 topikList.add(data);
                             }
                             mAdapter.notifyDataSetChanged();
-                            layout.setVisibility(View.VISIBLE);
                         } else {
                             kosong.setVisibility(View.VISIBLE);
+                            layout.setVisibility(View.GONE);
                         }
                     } else {
                         layout.setVisibility(View.GONE);
+                        kosong.setVisibility(View.GONE);
                         errorLayout.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {

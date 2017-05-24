@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.aghagha.tagg.data.AntaraSessionManager;
 import com.aghagha.tagg.models.Tugas;
@@ -44,6 +45,7 @@ import java.util.List;
 public class FragmentTugasGuru extends Fragment {
     private Context mContext;
     private RecyclerView rvTugasGuru;
+    private TextView tvlabel;
     private TugasGuruAdapter mAdapter;
     private List<Tugas> tugasList;
     private Spinner kelasSpinner;
@@ -96,6 +98,7 @@ public class FragmentTugasGuru extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tugas_guru, container, false);
+        tvlabel = (TextView)view.findViewById(R.id.tvlabel);
         rvTugasGuru = (RecyclerView) view.findViewById(R.id.rvTugasGuru);
         kelasSpinner = (Spinner) view.findViewById(R.id.kelas);
         tugasList = new ArrayList<>();
@@ -178,9 +181,11 @@ public class FragmentTugasGuru extends Fragment {
         showDialog();
 
         VolleyUtil volleyUtil = new VolleyUtil("req_tugas_list",getActivity(), NetworkUtils.tugas+"/"+userId+"/"+kelasId);
+        Log.d("REQ_TUGAS",NetworkUtils.tugas+"/"+userId+"/"+kelasId);
         volleyUtil.SendRequestGET(new VolleyUtil.VolleyResponseListener() {
             @Override
             public void onError(VolleyError error) {
+                error.printStackTrace();
                 layout.setVisibility(View.GONE);
                 errorLayout.setVisibility(View.VISIBLE);
                 hideDialog();
@@ -196,49 +201,75 @@ public class FragmentTugasGuru extends Fragment {
                     String code = jsonObject.getString("code");
                     if(code.equals("1")){
                         JSONObject mapel = jsonObject.getJSONObject("mapel");
-
-                        if(firstTimeLoad) {
-                            JSONArray kelasList = jsonObject.getJSONArray("kelas");
-                            String[] spinnerArray = new String[kelasList.length()];
-                            for (int i = 0; i < kelasList.length(); i++) {
-                                JSONObject kelas = kelasList.getJSONObject(i);
-                                spinnerMap.put(i, kelas.getString("id"));
-                                spinnerArray[i] = kelas.getString("nama");
-                            }
-                            kelasAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-                            kelasSpinner.setAdapter(kelasAdapter);
-
-                            firstTimeLoad=false;
-                            idKelasTerpilih = spinnerMap.get(0);
-                            kelasTerpilih = kelasAdapter.getItem(0);
-                            Log.d("YOW",idKelasTerpilih);
-                        }
+                        JSONArray kelasList = jsonObject.getJSONArray("kelas");
 
                         JSONArray listTugas = jsonObject.getJSONArray("tugas");
-                        if(listTugas.length()>0){
-                            empty.setVisibility(View.GONE);
-                            for(int i = 0; i < listTugas.length(); i++){
-                                JSONObject tugas = listTugas.getJSONObject(i);
-                                Tugas data = new Tugas(tugas.getInt("id"),
-                                        tugas.getString("date"),
-                                        tugas.getString("date2"),
-                                        mapel.getString(tugas.getString("id_mapel")),
-                                        tugas.getString("judul"),
-                                        tugas.getString("konten"),
-                                        tugas.getString("status"));
-                                tugasList.add(data);
-                            }
-                        } else empty.setVisibility(View.VISIBLE);
 
-                        mAdapter.notifyDataSetChanged();
-                        layout.setVisibility(View.VISIBLE);
+                        if (kelasList.length()>0) {
+                            setEmpty(false);
+                            if (firstTimeLoad) {
+                                String[] spinnerArray = new String[kelasList.length()];
+                                for (int i = 0; i < kelasList.length(); i++) {
+                                    JSONObject kelas = kelasList.getJSONObject(i);
+                                    spinnerMap.put(i, kelas.getString("id"));
+                                    spinnerArray[i] = kelas.getString("nama");
+                                }
+                                kelasAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinnerArray);
+                                kelasSpinner.setAdapter(kelasAdapter);
+
+                                firstTimeLoad = false;
+                                idKelasTerpilih = spinnerMap.get(0);
+                                kelasTerpilih = kelasAdapter.getItem(0);
+                                Log.d("YOW", idKelasTerpilih);
+                            }
+
+                            if(listTugas.length()>0 && kelasList.length()>0) {
+                                setEmpty(false);
+                                for (int i = 0; i < listTugas.length(); i++) {
+                                    JSONObject tugas = listTugas.getJSONObject(i);
+                                    Tugas data = new Tugas(tugas.getInt("id"),
+                                            tugas.getString("date"),
+                                            tugas.getString("date2"),
+                                            mapel.getString(tugas.getString("id_mapel")),
+                                            tugas.getString("judul"),
+                                            tugas.getString("konten"),
+                                            tugas.getString("status"));
+                                    tugasList.add(data);
+                                }
+
+                                mAdapter.notifyDataSetChanged();
+                                empty.setVisibility(View.GONE);
+                            } else {
+                                empty.setVisibility(View.VISIBLE);
+                            }
+                        } else {
+                            setEmpty(true);
+                        }
                         errorLayout.setVisibility(View.GONE);
+                        layout.setVisibility(View.VISIBLE);
+                    } else {
+                        layout.setVisibility(View.GONE);
+                        errorLayout.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    private void setEmpty(Boolean empty){
+        if(empty){
+            tvlabel.setVisibility(View.GONE);
+            kelasSpinner.setVisibility(View.GONE);
+            fb_tambah.setVisibility(View.GONE);
+            this.empty.setVisibility(View.VISIBLE);
+        } else {
+            tvlabel.setVisibility(View.VISIBLE);
+            kelasSpinner.setVisibility(View.VISIBLE);
+            fb_tambah.setVisibility(View.VISIBLE);
+            this.empty.setVisibility(View.GONE);
+        }
     }
 
     private void showDialog() {

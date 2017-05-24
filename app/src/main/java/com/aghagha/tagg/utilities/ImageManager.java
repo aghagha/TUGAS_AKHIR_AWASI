@@ -223,10 +223,7 @@ public class ImageManager {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-//                                String code = jsonObject.get("code").toString();
-//                                String message = jsonObject.get("status").toString();
-//                                Toast.makeText(ac, message, Toast.LENGTH_SHORT).show();
-                                ac.finish();
+                            ac.finish();
                         }
 
                         @Override
