@@ -55,7 +55,7 @@
             android:label="Tambah Topik" />
         <activity android:name=".TopikActivity">
             <intent-filter>
-                <action android:name="OPEN_THIS" />
+                <action android:name="OPEN_TOPIK" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

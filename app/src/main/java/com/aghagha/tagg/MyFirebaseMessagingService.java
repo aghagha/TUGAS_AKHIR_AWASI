@@ -47,12 +47,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
             Intent intent = new Intent(remoteMessage.getNotification().getClickAction());
-            if(remoteMessage.getNotification().getClickAction().equals("OPEN_BERITA")) {
-                intent.putExtra("judul", remoteMessage.getData().get("judul"));
-                intent.putExtra("konten", remoteMessage.getData().get("konten"));
-                intent.putExtra("tanggal", remoteMessage.getData().get("tanggal"));
-                intent.putExtra("gambar", remoteMessage.getData().get("gambar"));
-                intent.putExtra("lampiran", remoteMessage.getData().get("lampiran"));
+
+            switch (remoteMessage.getNotification().getClickAction()){
+                case("OPEN_BERITA"):
+                    intent.putExtra("judul", remoteMessage.getData().get("judul"));
+                    intent.putExtra("konten", remoteMessage.getData().get("konten"));
+                    intent.putExtra("tanggal", remoteMessage.getData().get("tanggal"));
+                    intent.putExtra("gambar", remoteMessage.getData().get("gambar"));
+                    intent.putExtra("lampiran", remoteMessage.getData().get("lampiran"));
+                    break;
+                case("OPEN_TOPIK"):
+                    intent.putExtra("judul", remoteMessage.getData().get("judul"));
+                    intent.putExtra("konten", remoteMessage.getData().get("konten"));
+                    intent.putExtra("tanggal", remoteMessage.getData().get("tanggal"));
+                    intent.putExtra("gambar", remoteMessage.getData().get("gambar"));
+                    break;
             }
 
             PendingIntent contentIntent = PendingIntent.getActivity(getBaseContext(),0,intent,PendingIntent.FLAG_CANCEL_CURRENT);
