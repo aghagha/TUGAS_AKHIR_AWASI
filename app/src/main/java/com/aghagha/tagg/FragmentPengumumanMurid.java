@@ -98,12 +98,6 @@ public class FragmentPengumumanMurid extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-        getTopikList();
-    }
-
     private void getTopikList() {
         progressDialog.setMessage("Sedang memuat...");
         progressDialog.show();

@@ -27,6 +27,7 @@ public class Tugas {
         this.dibuat = dibuat;
         this.status = status;
         this.cek = "";
+        this.telat = false;
     }
     public Tugas(int id_tugas, String dibuat, String deadline, String mapel, String judul, String konten, String status, String cek, Boolean telat){
         this.id_tugas = id_tugas;

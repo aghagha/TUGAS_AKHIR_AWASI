@@ -57,6 +57,8 @@ public class TugasMuridAdapter extends RecyclerView.Adapter<TugasMuridAdapter.Vi
             holder.label_deadline.setVisibility(View.VISIBLE);
             holder.deadline.setText(deadline);
         }
+        Log.d("Tugas ","dengan judul "+judul+" statusnya "+status+"dan cek="+status.equals("1"));
+
         if(status.equals("1")){
             //kelewat deadline
             holder.judul.setTextColor(ContextCompat.getColor(mContext,android.R.color.white));
@@ -89,7 +91,7 @@ public class TugasMuridAdapter extends RecyclerView.Adapter<TugasMuridAdapter.Vi
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, TandaiTugasActivity.class);
-                    intent.putExtra("id", tugasList.get(position).getId_tugas());
+                    intent.putExtra("id", String.valueOf(tugasList.get(position).getId_tugas()));
                     intent.putExtra("judul", judul);
                     intent.putExtra("konten", konten);
                     intent.putExtra("dibuat", dibuat);

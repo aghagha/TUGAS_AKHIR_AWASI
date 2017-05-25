@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class TandaiTugasActivity extends AppCompatActivity {
     AntaraSessionManager session;
     ProgressDialog pDialog;
     String tugasId, cek, deadline_;
+    String[] idMurid;
 
     TextView judul, dibuat, deadline, konten;
 
@@ -41,12 +43,16 @@ public class TandaiTugasActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         final Intent intent = getIntent();
-        tugasId = String.valueOf(intent.getIntExtra("id",0));
+        tugasId = String.valueOf(intent.getStringExtra("id"));
         cek = intent.getStringExtra("cek");
         deadline_ = intent.getStringExtra("deadline");
 
         pDialog = new ProgressDialog(this);
         session = new AntaraSessionManager(this);
+
+        if(session.getKeyMuridId()==null){
+            idMurid = intent.getStringArrayExtra("murid");
+        } else idMurid = null;
 
         judul = (TextView)findViewById(R.id.tvJudul);
         dibuat = (TextView)findViewById(R.id.tvCreated);
@@ -70,13 +76,13 @@ public class TandaiTugasActivity extends AppCompatActivity {
         builder.setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(!cek.equals("1"))setStatus("1", String.valueOf(intent.getIntExtra("id",0)));
+                if(!cek.equals("1"))setStatus("1", intent.getStringExtra("id"));
             }
         });
         builder.setNegativeButton("Belum", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(cek.equals("1"))setStatus("0",String.valueOf(intent.getIntExtra("id",0)));
+                if(cek.equals("1"))setStatus("0",intent.getStringExtra("id"));
             }
         });
 
@@ -91,7 +97,12 @@ public class TandaiTugasActivity extends AppCompatActivity {
     public void setStatus(String status, String id_tugas){
         pDialog.setMessage("Sedang memuat...");
         pDialog.show();
-        VolleyUtil volleyUtil = new VolleyUtil("req_update_status_penilaian",this.getBaseContext(), NetworkUtils.tugasMurid+"/"+session.getKeyMuridId()+"/"+id_tugas+"/"+status);
+
+        String id;
+        if(idMurid == null) id = session.getKeyMuridId();
+        else id = idMurid[Integer.parseInt(session.getKeyMuridId())].toString();
+
+        VolleyUtil volleyUtil = new VolleyUtil("req_update_status_penilaian",this.getBaseContext(), NetworkUtils.tugasMurid+"/"+id+"/"+id_tugas+"/"+status);
         volleyUtil.SendRequestGET(new VolleyUtil.VolleyResponseListener() {
             @Override
             public void onError(VolleyError error) {
@@ -114,7 +125,7 @@ public class TandaiTugasActivity extends AppCompatActivity {
                             deadline.setText("Sudah dikerjakan");
                         }
                     } else {
-                        Toast.makeText(TandaiTugasActivity.this, "Gagal menandai tugas...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TandaiTugasActivity.this,new JSONObject(response).getString("message")+",dari:", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
