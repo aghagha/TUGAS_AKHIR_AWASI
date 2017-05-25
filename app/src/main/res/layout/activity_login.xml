@@ -10,11 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.aghagha.tagg.LoginActivity">
-    <View
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="0px"
-        android:layout_height="0px"/>
+
     <ScrollView
         android:id="@+id/loginForm"
         android:layout_width="match_parent"
@@ -92,4 +88,10 @@
                 android:textColor="@color/colorAccent" />
         </LinearLayout>
     </ScrollView>
+
+    <View
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="0px"
+        android:layout_height="0px"/>
 </LinearLayout>

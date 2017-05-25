@@ -128,6 +128,24 @@ public class GuruActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private Boolean exit = false;
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            finish(); // finish activity
+        } else {
+            Toast.makeText(this, "Tekan Kembali sekali lagi untuk keluar",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+        }
+    }
+
     public static class MyPagerAdapter extends FragmentPagerAdapter implements PagerSlidingTabStrip.IconTabProvider{
         private static int NUM_ITEMS = 3;
         private int tabIcons[] = {R.drawable.ic_home,R.drawable.ic_chats,R.drawable.ic_tugas};

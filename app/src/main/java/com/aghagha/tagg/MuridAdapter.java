@@ -6,12 +6,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,15 +83,15 @@ public class MuridAdapter extends RecyclerView.Adapter<MuridAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView nama, kelas, sekolah;
-        CircleImageView iv_gambar;
-        LinearLayout layout;
+        ImageView iv_gambar;
+        RelativeLayout layout;
         public ViewHolder(View itemView) {
             super(itemView);
             nama = (TextView)itemView.findViewById(R.id.tv_nama);
             kelas = (TextView)itemView.findViewById(R.id.tv_kelas);
             sekolah = (TextView)itemView.findViewById(R.id.tv_sekolah);
-            iv_gambar = (CircleImageView)itemView.findViewById(R.id.iv_gambar);
-            layout = (LinearLayout)itemView.findViewById(R.id.layout);
+            iv_gambar = (ImageView) itemView.findViewById(R.id.iv_gambar);
+            layout = (RelativeLayout) itemView.findViewById(R.id.layout);
         }
     }
 

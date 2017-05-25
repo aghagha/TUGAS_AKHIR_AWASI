@@ -58,9 +58,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".OrangTuaActivity" />
-        <activity android:name=".MuridActivity" />
-        <activity android:name=".TandaiTugasActivity" />
+        <activity android:name=".OrangTuaActivity"
+            android:label="Pilih Anak"/>
+        <activity android:name=".MuridActivity"/>
+        <activity android:name=".TandaiTugasActivity" >
+            <intent-filter>
+                <action android:name="OPEN_TUGAS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service android:name=".MyFirebaseInstanceIDService">
             <intent-filter>

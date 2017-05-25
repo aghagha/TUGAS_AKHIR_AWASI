@@ -1,12 +1,25 @@
 package com.aghagha.tagg;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.icu.text.LocaleDisplayNames;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.aghagha.tagg.data.AntaraSessionManager;
@@ -29,11 +42,19 @@ public class OrangTuaActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private AntaraSessionManager session;
     private RecyclerView mRecyclerView;
+    private LinearLayout errorLayout, empty, layout;
+    private Button reload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orang_tua);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_option);
+        drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        toolbar.setOverflowIcon(drawable);
+        setSupportActionBar(toolbar);
 
         session = new AntaraSessionManager(this);
         progressDialog = new ProgressDialog(this);
@@ -49,7 +70,58 @@ public class OrangTuaActivity extends AppCompatActivity {
         mAdapter = new MuridAdapter(muridList);
         mRecyclerView.setAdapter(mAdapter);
 
+        errorLayout = (LinearLayout)findViewById(R.id.error);
+        empty = (LinearLayout)findViewById(R.id.empty);
+        layout = (LinearLayout)findViewById(R.id.layout);
+        reload = (Button)findViewById(R.id.btReload);
+
+        reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getMurid();
+            }
+        });
+
         getMurid();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_main_guru,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.profile:
+                Intent intent = new Intent(OrangTuaActivity.this, ProfilActivity.class);
+                intent.putExtra("idMurid","0");
+                startActivity(intent);
+                break;
+            case R.id.logout:
+                session.logoutUser(OrangTuaActivity.this);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private Boolean exit = false;
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            finish(); // finish activity
+        } else {
+            Toast.makeText(this, "Tekan Kembali sekali lagi untuk keluar",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+        }
     }
 
     @Override
@@ -67,18 +139,19 @@ public class OrangTuaActivity extends AppCompatActivity {
             @Override
             public void onError(VolleyError error) {
                 progressDialog.dismiss();
-                Toast.makeText(OrangTuaActivity.this, "Gagal memuat halaman...", Toast.LENGTH_SHORT).show();
+                errorLayout.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onResponse(String response) {
                 mAdapter.clear();
-                Log.d("INI RESPONSE",response);
+                errorLayout.setVisibility(View.GONE);
                 progressDialog.dismiss();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String code = jsonObject.getString("code");
                     if(code.equals("1")){
+                        empty.setVisibility(View.GONE);
                         JSONArray list = jsonObject.getJSONArray("murid");
                         String wali = jsonObject.getString("wali");
                         if(list.length()>0){
@@ -93,9 +166,11 @@ public class OrangTuaActivity extends AppCompatActivity {
                                 muridList.add(data);
                             }
                             mAdapter.notifyDataSetChanged();
+                        } else {
+                            empty.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        Toast.makeText(OrangTuaActivity.this, "Gagal memuat halaman...", Toast.LENGTH_SHORT).show();
+                        errorLayout.setVisibility(View.GONE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

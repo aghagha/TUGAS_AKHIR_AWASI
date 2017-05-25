@@ -5,32 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_vertical"
     tools:context="com.aghagha.tagg.OrangTuaActivity">
-    <LinearLayout
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:paddingBottom="10dp"
+        app:titleTextColor="@android:color/white"
         android:background="@color/colorAccent">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="14dp"
-            android:text="Pilih anak sebelum masuk ke aplikasi:"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:gravity="center_horizontal"
-            android:background="@android:color/white"
-            android:textColor="@color/colorAccent"/>
-
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal">
+        <include layout="@layout/error_layout"></include>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvMurid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"/>
+        <include layout="@layout/kosong"></include>
     </LinearLayout>
 
 </LinearLayout>
