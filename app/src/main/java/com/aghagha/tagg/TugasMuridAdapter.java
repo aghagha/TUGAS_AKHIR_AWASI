@@ -2,12 +2,16 @@ package com.aghagha.tagg;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,9 +66,16 @@ public class TugasMuridAdapter extends RecyclerView.Adapter<TugasMuridAdapter.Vi
             if(tugasList.get(position).getTelat()){
                 //telat dan belum ditandai
                 holder.layout.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorTextRed));
+                Drawable silang = ContextCompat.getDrawable(mContext,R.drawable.ic_silang);
+                holder.icon.setImageDrawable(silang);
+                holder.icon.setColorFilter(Color.WHITE);
             } else {
                 //tepat waktu
                 holder.layout.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorAccent));
+                Drawable centang = ContextCompat.getDrawable(mContext,R.drawable.ic_centang);
+                holder.icon.setImageDrawable(centang);
+                holder.icon.setColorFilter(Color.WHITE);
+
                 holder.judul.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -104,6 +115,7 @@ public class TugasMuridAdapter extends RecyclerView.Adapter<TugasMuridAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView judul, dibuat, deadline, konten, label_deadline;
         public LinearLayout layout, layout2, layout3;
+        public ImageView icon;
         public ViewHolder(View itemView) {
             super(itemView);
             mContext = itemView.getContext();
@@ -115,6 +127,7 @@ public class TugasMuridAdapter extends RecyclerView.Adapter<TugasMuridAdapter.Vi
             layout = (LinearLayout) itemView.findViewById(R.id.layout);
             layout2 = (LinearLayout) itemView.findViewById(R.id.layout2);
             layout3 = (LinearLayout) itemView.findViewById(R.id.layout3);
+            icon = (ImageView) itemView.findViewById(R.id.ikon);
         }
     }
 }

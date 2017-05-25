@@ -7,26 +7,29 @@
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/tvlabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/prompt_mapel_tugas"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="16dp"/>
+            android:textSize="10sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="28dp"/>
         <!--@TODO edit style dari spinner, atau cari alternatif lain-->
         <Spinner
             android:id="@+id/sp_mapel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.AppCompat.DropDownItem.Spinner">
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/spinner_background"
+            style="@style/spinner_style">
         </Spinner>
+        <include layout="@layout/kosong"></include>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_laporan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <include layout="@layout/kosong"></include>
     </LinearLayout>
 </FrameLayout>

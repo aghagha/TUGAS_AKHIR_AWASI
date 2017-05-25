@@ -3,12 +3,12 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:layout_gravity="center"
     android:visibility="gone"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="120dp"
         android:text="Halaman tidak bisa dimuat, silahkan coba lagi."
         android:textAlignment="center"/>
     <Button

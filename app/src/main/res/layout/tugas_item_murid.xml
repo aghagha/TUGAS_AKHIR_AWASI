@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:elevation="2dp">
 
     <LinearLayout
         android:id="@+id/layout"
@@ -17,18 +18,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:orientation="vertical"
-            android:paddingBottom="10dp"
             android:paddingLeft="16dp"
-            android:paddingTop="10dp">
+            android:paddingTop="8dp">
 
             <TextView
                 android:id="@+id/tvJudul"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:clickable="true"
                 android:text="Judul"
                 android:textColor="@android:color/black"
-                android:textSize="17dp"
+                android:textSize="16dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -38,7 +39,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="Tanggal"
                 android:textColor="@color/colorTextGray"
-                android:textSize="12dp"
+                android:textSize="10dp"
                 android:textStyle="italic" />
         </LinearLayout>
 
@@ -50,10 +51,10 @@
             android:background="@color/colorSekunder"
             android:gravity="center_vertical|end"
             android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="8dp"
-            android:paddingTop="10dp">
+            android:paddingBottom="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp">
 
             <TextView
                 android:id="@+id/tv_label_deadline"
@@ -62,7 +63,9 @@
                 android:clickable="true"
                 android:gravity="right"
                 android:text="deadline:"
-                android:textColor="@android:color/white" />
+                android:layout_marginBottom="8dp"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/tvDeadline"
@@ -82,9 +85,9 @@
             android:gravity="center_vertical|end"
             android:orientation="vertical"
             android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="8dp"
-            android:paddingTop="10dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
             android:visibility="gone">
 
             <ImageView
@@ -98,10 +101,11 @@
         android:id="@+id/tvKonten"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
         android:paddingLeft="16dp"
-        android:paddingBottom="16dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         android:paddingRight="16dp"
+        android:textSize="12sp"
         android:textColor="@android:color/black"
         android:text="Konten"/>
 </LinearLayout>

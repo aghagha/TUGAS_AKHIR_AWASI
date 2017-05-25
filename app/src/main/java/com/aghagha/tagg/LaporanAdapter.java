@@ -54,12 +54,12 @@ public class LaporanAdapter extends RecyclerView.Adapter<LaporanAdapter.ViewHold
         if(!judul.equals("")) {
             if (nilai.compareTo(mean) >= 0) {
                 comparison = ContextCompat.getDrawable(mContext, R.drawable.ic_up);
-                ColorFilter filter = new LightingColorFilter(Color.GREEN, Color.GREEN);
+                ColorFilter filter = new LightingColorFilter(Color.parseColor("#176936"), Color.parseColor("#176936"));
                 comparison.setColorFilter(filter);
                 holder.arrow.setImageDrawable(comparison);
             } else {
                 comparison = ContextCompat.getDrawable(mContext, R.drawable.ic_down);
-                ColorFilter filter = new LightingColorFilter(Color.RED, Color.RED);
+                ColorFilter filter = new LightingColorFilter(Color.parseColor("#DB1616"), Color.parseColor("#DB1616"));
                 comparison.setColorFilter(filter);
                 holder.arrow.setImageDrawable(comparison);
             }

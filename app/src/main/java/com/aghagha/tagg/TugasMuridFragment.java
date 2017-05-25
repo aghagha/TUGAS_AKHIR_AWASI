@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TugasMuridFragment extends Fragment {
+    private NestedScrollView nested;
     private LinearLayout errorLayout, kosong;
     private Button btReload;
     private RecyclerView rvTugasMurid;
@@ -81,6 +82,7 @@ public class TugasMuridFragment extends Fragment {
 
         mAdapter = new TugasMuridAdapter(tugasList);
         rvTugasMurid.setAdapter(mAdapter);
+        rvTugasMurid.setNestedScrollingEnabled(false);
 
         kosong = (LinearLayout)view.findViewById(R.id.empty);
         errorLayout= (LinearLayout)view.findViewById(R.id.error);
@@ -91,6 +93,8 @@ public class TugasMuridFragment extends Fragment {
                 getTugasList();
             }
         });
+
+        nested = (NestedScrollView)view.findViewById(R.id.nested);
 
         getTugasList();
 
@@ -105,7 +109,7 @@ public class TugasMuridFragment extends Fragment {
         volleyUtil.SendRequestGET(new VolleyUtil.VolleyResponseListener() {
             @Override
             public void onError(VolleyError error) {
-                rvTugasMurid.setVisibility(View.GONE);
+                nested.setVisibility(View.GONE);
                 errorLayout.setVisibility(View.VISIBLE);
                 hideDialog();
             }
@@ -120,6 +124,9 @@ public class TugasMuridFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     String code = jsonObject.getString("code");
                     if(code.equals("1")){
+                        nested.setVisibility(View.VISIBLE);
+                        errorLayout.setVisibility(View.GONE);
+
                         JSONObject mapel = jsonObject.getJSONObject("mapel");
 
                         JSONArray listTugas = jsonObject.getJSONArray("tugas");
@@ -139,13 +146,14 @@ public class TugasMuridFragment extends Fragment {
                                 tugasList.add(data);
                             }
                         } else {
+                            nested.setVisibility(View.GONE);
                             kosong.setVisibility(View.VISIBLE);
                         }
                         mAdapter.notifyDataSetChanged();
-                        rvTugasMurid.setVisibility(View.VISIBLE);
-                        errorLayout.setVisibility(View.GONE);
+
                     } else {
-                        rvTugasMurid.setVisibility(View.GONE);
+                        nested.setVisibility(View.GONE);
+                        kosong.setVisibility(View.GONE);
                         errorLayout.setVisibility(View.VISIBLE);
                     }
                 } catch (JSONException e) {

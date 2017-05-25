@@ -138,6 +138,7 @@ public class ProfilActivity extends AppCompatActivity implements FragmentGantiPa
 
         if(!isMurid.equals("0")){
             editPW.setVisibility(View.GONE);
+            et_email.setVisibility(View.GONE);
         }
         setForm();
 
