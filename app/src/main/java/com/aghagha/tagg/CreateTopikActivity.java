@@ -115,15 +115,14 @@ public class CreateTopikActivity extends AppCompatActivity {
                         if(judul.getText().toString().equals("") || konten.getText().toString().equals("")){
                             Toast.makeText(CreateTopikActivity.this, "Judul dan/atau konten tidak boleh kosong", Toast.LENGTH_SHORT).show();
                         } else {
+                            String id  =session.getKeyId();
+                            Log.d("INI ID POSTER", id);
                             imageManager.createTopik(getApplicationContext(),
-                                    session.getKeyId(),
+                                    id,
                                     id_kelas,
                                     judul.getText().toString(),
                                     idTujuan,
-                                    konten.getText().toString(),
-                                    "Mengunggah topik",
-                                    "Topik berhasil diunggah",
-                                    "Topik gagal diunggah");
+                                    konten.getText().toString());
                         }
                         break;
                 }

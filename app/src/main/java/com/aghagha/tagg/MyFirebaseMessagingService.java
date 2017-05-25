@@ -61,6 +61,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     intent.putExtra("konten", remoteMessage.getData().get("konten"));
                     intent.putExtra("tanggal", remoteMessage.getData().get("tanggal"));
                     intent.putExtra("gambar", remoteMessage.getData().get("gambar"));
+                    intent.putExtra("id_topik", remoteMessage.getData().get("id_topik"));
+                    break;
+                case("OPEN_TUGAS"):
+                    intent.putExtra("id", remoteMessage.getData().get("id"));
+                    intent.putExtra("deadline", remoteMessage.getData().get("deadline"));
+                    intent.putExtra("judul", remoteMessage.getData().get("judul"));
+                    intent.putExtra("dibuat", remoteMessage.getData().get("dibuat"));
+                    intent.putExtra("konten", remoteMessage.getData().get("konten"));
+                    intent.putExtra("murid", remoteMessage.getData().get("murid"));
+                    intent.putExtra("cek", remoteMessage.getData().get("cek"));
                     break;
             }
 

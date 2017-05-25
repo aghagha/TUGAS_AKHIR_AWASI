@@ -24,7 +24,7 @@
                 android:gravity="bottom"
                 android:textSize="10sp"
                 android:textColor="@color/colorTextGray"
-                android:text="Topik"/>
+                android:text="TOPIK"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvForumMurid"
                 android:layout_width="match_parent"

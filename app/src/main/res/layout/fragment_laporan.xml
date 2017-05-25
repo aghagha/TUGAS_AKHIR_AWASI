@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.aghagha.tagg.LaporanFragment">
     <include layout="@layout/error_layout"></include>
+
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
@@ -14,19 +15,19 @@
             android:id="@+id/tvlabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/prompt_mapel_tugas"
-            android:textSize="10sp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="28dp"/>
-        <!--@TODO edit style dari spinner, atau cari alternatif lain-->
+            android:layout_marginTop="28dp"
+            android:text="MATA PELAJARN"
+            android:textSize="10sp" />
         <Spinner
             android:id="@+id/sp_mapel"
+            style="@style/spinner_style"
             android:layout_width="match_parent"
             android:layout_marginBottom="24dp"
-            android:background="@drawable/spinner_background"
-            style="@style/spinner_style">
-        </Spinner>
+            android:background="@drawable/spinner_background"></Spinner>
+
         <include layout="@layout/kosong"></include>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_laporan"
             android:layout_width="match_parent"

@@ -177,18 +177,21 @@ public class ImageManager {
         }
     }
 
-    public void createTopik(final Context context, String id_, String id_kelas, String judul_, String idK_, String konten_, final String judul, final String pesanSukses, final String pesanGagal){
+    public void createTopik(final Context context, String id_, String id_kelas, String judul_, String idK_, String konten_){
         try {
             final ProgressDialog progressDialog = new ProgressDialog(ac);
             progressDialog.setCancelable(false);
             progressDialog.setMessage("Sedang menyimpan...");
             progressDialog.show();
-
+            String sukse =  "Topik selesai diunggah";
+            String gagal = "Topik selesai diunggah";
+            Log.d("Pesan notifikasi:",sukse+gagal);
             UploadNotificationConfig notificationConfig = new UploadNotificationConfig()
-                    .setTitle(judul)
+                    .setTitle("Antara - Tambah topik")
                     .setInProgressMessage("Menyimpan gambar")
-                    .setErrorMessage(pesanGagal)
-                    .setCompletedMessage(pesanSukses);
+                    .setErrorMessage(gagal)
+                    .setCompletedMessage(sukse);
+            Log.d("ID KELAS",id_kelas);
             MultipartUploadRequest multipartUploadRequest = new MultipartUploadRequest(context, NetworkUtils.add_topik+"/"+id_kelas)
                     .setMethod("POST")
                     .setUtf8Charset()
@@ -204,7 +207,7 @@ public class ImageManager {
                     .setDelegate(new UploadStatusDelegate() {
                         @Override
                         public void onProgress(Context context, UploadInfo uploadInfo) {
-                            Log.d("####","upload on going");
+
                         }
 
                         @Override
@@ -215,14 +218,8 @@ public class ImageManager {
 
                         @Override
                         public void onCompleted(Context context, UploadInfo uploadInfo, ServerResponse serverResponse) {
-                                progressDialog.dismiss();
-                            try {
-                                JSONObject jsonObject = new JSONObject(serverResponse.getBodyAsString());
-                                String code = jsonObject.get("code").toString();
-                                Toast.makeText(ac, "Berhasil disimpan", Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            progressDialog.dismiss();
+                            Toast.makeText(ac, "Berhasil disimpan", Toast.LENGTH_SHORT).show();
                             ac.finish();
                         }
 

@@ -105,8 +105,6 @@ public class TopikActivity extends AppCompatActivity {
             new DownloadImageTask(ivGambar).execute(NetworkUtils.topik_gambar+gambar);
         }
 
-        getKomentar(idTopik);
-
         bt_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,6 +114,9 @@ public class TopikActivity extends AppCompatActivity {
                 else postKomentar();
             }
         });
+
+        getKomentar(idTopik);
+
     }
 
     private void postKomentar() {
@@ -195,7 +196,6 @@ public class TopikActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(TopikActivity.this,
                                 "Halaman gagal dimuat, coba lagi", Toast.LENGTH_LONG).show();
-                        finish();
                     }
 
                 } catch (JSONException e) {
@@ -203,7 +203,6 @@ public class TopikActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     @Override
