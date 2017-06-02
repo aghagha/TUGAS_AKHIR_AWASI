@@ -141,6 +141,7 @@ public class RegisterActivity extends AppCompatActivity {
                         JSONObject user = jsonObject.getJSONObject("user");
                         Toast.makeText(RegisterActivity.this, pesan, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        //startactivity intent?
                     } else {
                         Toast.makeText(RegisterActivity.this, pesan, Toast.LENGTH_SHORT).show();
                     }

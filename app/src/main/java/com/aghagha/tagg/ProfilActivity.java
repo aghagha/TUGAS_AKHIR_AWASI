@@ -326,12 +326,12 @@ public class ProfilActivity extends AppCompatActivity implements FragmentGantiPa
             if (requestCode == imageManager.SELECT_FILE) {
                 imageManager.onSelectFromGalleryResult(data);
                 filePath = imageManager.filePath;
-                imageManager.uploadMultipart(this,session.getKeyEmail(),iv_gambar,"Mengunggah gambar...","Gambar berhasil diunggah!","Gambar gagal diunggah..");
+                imageManager.uploadMultipart(this,session.getKeyEmail(),iv_gambar,"Awasi - Unggah Gambar","Gambar berhasil diunggah!","Gambar gagal diunggah..");
             }
             else if (requestCode == imageManager.REQUEST_CAMERA) {
                 imageManager.onCaptureImageResult(data);
                 filePath = imageManager.filePath;
-                imageManager.uploadMultipart(this,session.getKeyEmail(),iv_gambar,"Mengunggah gambar...","Gambar berhasil diunggah!","Gambar gagal diunggah..");
+                imageManager.uploadMultipart(this,session.getKeyEmail(),iv_gambar,"Awasi - Unggah Gambar","Gambar berhasil diunggah!","Gambar gagal diunggah..");
             }
         }
     }
