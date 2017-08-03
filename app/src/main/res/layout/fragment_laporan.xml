@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.aghagha.tagg.LaporanFragment">
     <include layout="@layout/error_layout"></include>
 
@@ -16,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="28dp"
-            android:text="MATA PELAJARN"
+            android:layout_marginTop="18dp"
+            android:text="MATA PELAJARAN"
             android:textSize="10sp" />
         <Spinner
             android:id="@+id/sp_mapel"
@@ -33,4 +34,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fb_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_download"
+        app:fabSize="normal"
+        app:layout_anchorGravity="bottom|right|end" />
 </FrameLayout>

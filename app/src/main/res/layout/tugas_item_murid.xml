@@ -1,111 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginBottom="18dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     android:background="@android:color/white"
     android:elevation="2dp">
-
     <LinearLayout
-        android:id="@+id/layout"
+        android:id="@+id/deadline_bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingTop="8dp">
-
-            <TextView
-                android:id="@+id/tvJudul"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:clickable="true"
-                android:text="Judul"
-                android:textColor="@android:color/black"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvCreated"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="Tanggal"
-                android:textColor="@color/colorTextGray"
-                android:textSize="10dp"
-                android:textStyle="italic" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:background="@color/colorSekunder"
-            android:gravity="center_vertical|end"
-            android:orientation="vertical"
-            android:paddingBottom="8dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="16dp"
-            android:paddingTop="8dp">
-
-            <TextView
-                android:id="@+id/tv_label_deadline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:gravity="right"
-                android:text="deadline:"
-                android:layout_marginBottom="4dp"
-                android:textColor="@android:color/white"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/tvDeadline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="deadline"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="center_vertical|end"
-            android:orientation="vertical"
-            android:paddingBottom="10dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="16dp"
-            android:paddingTop="8dp"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/ikon"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvKonten"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="28dp"
+        android:text="Judul"
+        android:background="@color/colorTextGray"
         android:paddingLeft="16dp"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
         android:paddingRight="16dp"
-        android:textSize="12sp"
-        android:textColor="@android:color/black"
-        android:text="Konten"/>
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/ikon"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_silang"
+            android:layout_marginRight="8dp"
+            android:visibility="gone"/>
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/tvDeadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="10sp"
+            android:text="Deadline"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        <TextView
+            android:id="@+id/tvJudul"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Judul"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:clickable="true"/>
+        <TextView
+            android:id="@+id/tvCreated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:textSize="10sp"
+            android:textColor="@color/colorTextGray"
+            android:textStyle="italic"
+            android:text="Tanggal"/>
+
+        <TextView
+            android:id="@+id/tvKonten"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            android:text="Konten"
+            android:textColor="@android:color/black"
+            android:textSize="12sp" />
+    </LinearLayout>
 </LinearLayout>

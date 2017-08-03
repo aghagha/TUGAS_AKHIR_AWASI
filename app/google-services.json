@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "688128354327",
+    "firebase_url": "https://tagg-a867c.firebaseio.com",
+    "project_id": "tagg-a867c",
+    "storage_bucket": "tagg-a867c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688128354327:android:c22ce151cfb2e28f",
+        "android_client_info": {
+          "package_name": "com.aghagha.tagg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "688128354327-bom5rslkvaarq0qhh5jftck2cmh8bcue.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aghagha.tagg",
+            "certificate_hash": "11bfb4a321e55118a533f2da40db00f26dc8b621"
+          }
+        },
+        {
+          "client_id": "688128354327-1l156c5nq1anj07migqn2lulv9c102jt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKTnG4_L3qUdmMVeGMHV-DsFgL1MJ2MyM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "688128354327-1l156c5nq1anj07migqn2lulv9c102jt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

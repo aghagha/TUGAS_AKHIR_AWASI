@@ -6,49 +6,55 @@
     tools:context="com.aghagha.tagg.FragmentPengumumanGuru"
     android:background="@color/colorGray">
     <include layout="@layout/error_layout"></include>
+
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:visibility="visible">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tvlabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="28dp"
-                android:paddingLeft="16dp"
-                android:paddingBottom="4dp"
                 android:gravity="bottom"
-                android:textSize="10sp"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="18dp"
+                android:text="KELAS"
                 android:textColor="@color/colorTextGray"
-                android:text="KELAS"/>
+                android:textSize="10sp" />
+
             <Spinner
                 android:id="@+id/kelas"
-                android:layout_marginBottom="24dp"
-                style="@style/spinner_style"/>
+                style="@style/spinner_style"
+                android:layout_marginBottom="24dp" />
+
             <include layout="@layout/kosong"></include>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvForumGuru"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </android.support.v7.widget.RecyclerView>
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
         </LinearLayout>
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fb_tambah"
-            android:src="@drawable/ic_add_chat"
-            app:fabSize="normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
-            app:layout_anchor="@id/rvForumGuru"
             android:scaleType="center"
+            android:src="@drawable/ic_add_chat"
+            app:fabSize="normal"
+            app:layout_anchor="@id/rvForumGuru"
             app:layout_anchorGravity="bottom|right|end"/>
     </android.support.design.widget.CoordinatorLayout>
 </FrameLayout>

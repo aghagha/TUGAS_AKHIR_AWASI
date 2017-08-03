@@ -47,7 +47,7 @@ public class NilaiGuruAdapter extends RecyclerView.Adapter<NilaiGuruAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(final NilaiGuruAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final NilaiGuruAdapter.ViewHolder holder, final int position) {
         progressDialog = new ProgressDialog(mContext);
 
         String no = String.valueOf(position);
@@ -70,14 +70,14 @@ public class NilaiGuruAdapter extends RecyclerView.Adapter<NilaiGuruAdapter.View
         } else holder.nilai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setAlertBox(nama, holder.nilai, id);
+                setAlertBox(nama, holder.nilai, id, position);
                 alertbox.show();
             }
         });
 
     }
 
-    private void setAlertBox(String nama, final TextView nilai, final String id) {
+    private void setAlertBox(String nama, final TextView nilai, final String id, final int position) {
         if(alertbox!=null)alertbox.dismiss();
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         final View view = layoutInflater.inflate(R.layout.dialog_input_nilai,null);
@@ -89,7 +89,7 @@ public class NilaiGuruAdapter extends RecyclerView.Adapter<NilaiGuruAdapter.View
         alertbox.setButton(alertbox.BUTTON_POSITIVE, "SIMPAN", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                simpanNilai(et_nilai.getText().toString(),nilai,id);
+                simpanNilai(et_nilai.getText().toString(),nilai,id,position);
             }
         });
 
@@ -106,7 +106,7 @@ public class NilaiGuruAdapter extends RecyclerView.Adapter<NilaiGuruAdapter.View
         notifyDataSetChanged();
     }
 
-    public void simpanNilai(final String s, final TextView nilai, String id){
+    public void simpanNilai(final String s, final TextView nilai, String id, final int position){
         progressDialog.setMessage("Sedang menyimpan...");
         progressDialog.show();
 
@@ -127,9 +127,11 @@ public class NilaiGuruAdapter extends RecyclerView.Adapter<NilaiGuruAdapter.View
                     JSONObject j = new JSONObject(response);
                     String code = j.getString("code");
                     if(code.equals("1")){
+                        listNilai.get(position).setNilai(s);
                         Toast.makeText(mContext, j.getString("message"), Toast.LENGTH_SHORT).show();
                         nilai.setText(s);
                         nilai.setTextColor(ContextCompat.getColor(mContext,android.R.color.black));
+                        notifyItemChanged(position);
                     } else {
                         Toast.makeText(mContext, j.getString("message"), Toast.LENGTH_SHORT).show();
                     }

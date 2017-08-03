@@ -59,7 +59,7 @@ public class GuruActivity extends AppCompatActivity {
         pager.setOffscreenPageLimit(2);
         adapter = new MyPagerAdapter(getSupportFragmentManager());
 
-        final String pages[]={"Beranda","Forum","Tugas"};
+        final String pages[]={"Beranda","Percakapan","Tugas"};
 
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
@@ -77,7 +77,7 @@ public class GuruActivity extends AppCompatActivity {
                     if(i==position){
                         tv.setColorFilter(Color.WHITE);
                     } else {
-                        tv.setColorFilter(ContextCompat.getColor(getBaseContext(),R.color.colorSekunder));
+                        tv.setColorFilter(ContextCompat.getColor(getBaseContext(),R.color.colorSekunder2));
                     }
                 }
             }

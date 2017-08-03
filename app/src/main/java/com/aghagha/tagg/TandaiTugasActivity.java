@@ -12,6 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,10 +30,11 @@ import org.json.JSONObject;
 public class TandaiTugasActivity extends AppCompatActivity {
     AntaraSessionManager session;
     ProgressDialog pDialog;
-    String tugasId, cek, deadline_;
+    String tugasId, cek, deadline_, status;
     String[] idMurid;
 
     TextView judul, dibuat, deadline, konten;
+    LinearLayout llCekDeadline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +42,16 @@ public class TandaiTugasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tandai_tugas);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         final Intent intent = getIntent();
         tugasId = String.valueOf(intent.getStringExtra("id"));
         cek = intent.getStringExtra("cek");
+        status = intent.getStringExtra("status");
         deadline_ = intent.getStringExtra("deadline");
-
+        toolbar.setTitle(intent.getStringExtra("judul"));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         pDialog = new ProgressDialog(this);
         session = new AntaraSessionManager(this);
 
@@ -58,6 +63,7 @@ public class TandaiTugasActivity extends AppCompatActivity {
         dibuat = (TextView)findViewById(R.id.tvCreated);
         deadline = (TextView)findViewById(R.id.tvDeadline);
         konten = (TextView)findViewById(R.id.tvKonten);
+        llCekDeadline = (LinearLayout)findViewById(R.id.llCekDeadline);
 
         String judul_ = intent.getStringExtra("judul");
 
@@ -92,6 +98,23 @@ public class TandaiTugasActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+
+        if(status.equals("1")){
+            llCekDeadline.setVisibility(View.GONE);
+            ImageView centang = (ImageView)findViewById(R.id.iv_centang);
+            TextView tvNilai = (TextView)findViewById(R.id.tvNilai);
+            LinearLayout layout_grafik = (LinearLayout)findViewById(R.id.layout_grafik);
+            Spinner spinner = (Spinner)findViewById(R.id.tipe_grafik);
+            centang.setVisibility(View.VISIBLE);
+            tvNilai.setVisibility(View.VISIBLE);
+            layout_grafik.setVisibility(View.VISIBLE);
+
+            String[] spinnerArray = new String[2];
+            spinnerArray[0] = "Mata Pelajaran";
+            spinnerArray[1] = "Kelas";
+            ArrayAdapter<String> grafikAdapter = new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_spinner_dropdown_item,spinnerArray);
+            spinner.setAdapter(grafikAdapter);
+        }
     }
 
     public void setStatus(String status, String id_tugas){

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aghagha.tagg.data.AntaraSessionManager;
@@ -45,9 +46,12 @@ public class TugasGuruAdapter extends RecyclerView.Adapter<TugasGuruAdapter.View
         holder.dibuat.setText(dibuat);
         holder.deadline.setText(deadline);
         if(status.equals("0")){
-            holder.deadline.setTextColor(ContextCompat.getColor(mContext,R.color.colorAccent));
+            holder.deadline_bg.setBackgroundColor(mContext.getResources().getColor(R.color.colorTextGray));
+        } else {
+            holder.deadline.setText("SELESAI");
+            holder.deadline_bg.setBackgroundColor(mContext.getResources().getColor(R.color.colorAccent));
         }
-        holder.judul.setOnClickListener(new View.OnClickListener() {
+        holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext,InputNilaiActivity.class);
@@ -74,6 +78,7 @@ public class TugasGuruAdapter extends RecyclerView.Adapter<TugasGuruAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView judul, dibuat, deadline, konten;
+        public LinearLayout deadline_bg, layout;
         public ViewHolder(View itemView) {
             super(itemView);
             mContext = itemView.getContext();
@@ -81,6 +86,8 @@ public class TugasGuruAdapter extends RecyclerView.Adapter<TugasGuruAdapter.View
             konten = (TextView)itemView.findViewById(R.id.tvKonten);
             dibuat = (TextView)itemView.findViewById(R.id.tvCreated);
             deadline = (TextView)itemView.findViewById(R.id.tvDeadline);
+            deadline_bg = (LinearLayout)itemView.findViewById(R.id.deadline_bg);
+            layout = (LinearLayout)itemView.findViewById(R.id.layout);
         }
     }
 }

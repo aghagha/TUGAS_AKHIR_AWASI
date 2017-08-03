@@ -57,7 +57,7 @@ public class MuridActivity extends AppCompatActivity {
         pager.setOffscreenPageLimit(3);
         adapter = new MyPagerAdapter(getSupportFragmentManager());
 
-        final String pages[]={"Beranda","Forum","Tugas","Laporan"};
+        final String pages[]={"Beranda","Percakapan","Tugas","Laporan"};
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
 
@@ -74,7 +74,7 @@ public class MuridActivity extends AppCompatActivity {
                     if(i==position){
                         tv.setColorFilter(Color.WHITE);
                     } else {
-                        tv.setColorFilter(ContextCompat.getColor(getBaseContext(),R.color.colorSekunder));
+                        tv.setColorFilter(ContextCompat.getColor(getBaseContext(),R.color.colorSekunder2));
                     }
                 }
             }

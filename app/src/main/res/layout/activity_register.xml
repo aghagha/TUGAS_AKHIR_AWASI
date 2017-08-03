@@ -42,7 +42,8 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:theme="@style/underline">
 
                 <EditText
                     android:id="@+id/et_nama"
@@ -50,13 +51,14 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_user_name"
                     android:inputType="text"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/secondAccent" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:theme="@style/underline">
 
                 <EditText
                     android:id="@+id/et_email"
@@ -64,13 +66,14 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_user_email"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/secondAccent" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:theme="@style/underline">
 
                 <EditText
                     android:id="@+id/et_telepon"
@@ -78,13 +81,14 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_user_phone"
                     android:inputType="number"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/secondAccent" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:theme="@style/underline">
 
                 <EditText
                     android:id="@+id/et_password"
@@ -92,13 +96,14 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_user_password"
                     android:inputType="textPassword"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/secondAccent" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:theme="@style/underline">
 
                 <EditText
                     android:id="@+id/et_password2"
@@ -106,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_user_password2"
                     android:inputType="textPassword"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/secondAccent" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -115,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorAccent"
+                android:background="@color/secondAccent"
                 android:text="@string/register_button"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 android:textColor="@color/colorIcons"
@@ -128,7 +133,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/login_from_register"
                 android:textAlignment="center"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/secondAccent" />
         </LinearLayout>
     </ScrollView>
 

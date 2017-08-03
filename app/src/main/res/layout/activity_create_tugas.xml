@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleTextColor="@android:color/white"
-        android:background="@color/colorAccent">
+        android:background="@color/colorPrimary2">
     </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.TextInputLayout
@@ -95,7 +95,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/tugas_save_button"
         android:textColor="@android:color/white"
-        android:background="@color/colorAccent"/>
+        android:background="@color/colorPrimary2"/>
 
 </LinearLayout>
 

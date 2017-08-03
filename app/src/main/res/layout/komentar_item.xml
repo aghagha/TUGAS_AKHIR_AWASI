@@ -10,10 +10,10 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_profil"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="48dp"
         android:layout_weight="1"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="top"
+        android:layout_gravity="center_vertical"
         android:src="@drawable/default_user"/>
     <LinearLayout
         android:layout_width="0dp"
@@ -29,14 +29,16 @@
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@android:color/black"
-            android:text="Nama"/>
+            android:text="Nama"
+            android:layout_marginBottom="12dp"/>
         <TextView
             android:id="@+id/tvWaktu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="10dp"
             android:textStyle="italic"
-            android:text="Waktu"/>
+            android:text="Waktu"
+            android:layout_marginBottom="4dp"/>
         <TextView
             android:id="@+id/tvKomentar"
             android:layout_width="match_parent"

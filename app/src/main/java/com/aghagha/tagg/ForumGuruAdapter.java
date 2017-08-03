@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aghagha.tagg.models.Topik;
@@ -18,6 +20,8 @@ import com.aghagha.tagg.utilities.NetworkUtils;
 
 import java.io.InputStream;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by aghagha on 08/05/2017.
@@ -42,20 +46,26 @@ public class ForumGuruAdapter extends RecyclerView.Adapter<ForumGuruAdapter.View
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final String gambar = topikList.get(position).getGambar();
         final String judul = topikList.get(position).getJudul();
+        final String konten = topikList.get(position).getKonten();
 
-        if(judul.length()  >= 50){
-            holder.judul.setText(judul.substring(0,49)+"...");
+        if(judul.length()  >= 20){
+            holder.judul.setText(judul.substring(0,19)+"...");
         } else {
             holder.judul.setText(judul);
         }
         holder.tanggal.setText(topikList.get(position).getTanggal());
-        holder.konten.setText(topikList.get(position).getKonten());
-        holder.komentar.setText(topikList.get(position).getKomentar()+" komentar");
-        if(!gambar.equals("null")){
-            new DownloadImageTask(holder.gambar).execute(NetworkUtils.topik_gambar+gambar);
+        if(konten.length()  >= 70){
+            holder.konten.setText(konten.substring(0,69)+"...");
         } else {
-            holder.gambar.setVisibility(View.GONE);
+            holder.konten.setText(konten);
         }
+        Drawable guru;
+        if(topikList.get(position).getId().equals("9")){
+            guru = mContext.getResources().getDrawable(R.drawable.guru2);
+        } else {
+            guru = mContext.getResources().getDrawable(R.drawable.guru);
+        }
+        holder.iv_gambar.setImageDrawable(guru);
 
         //@TODO tambahin tujuan dari pesan
         View.OnClickListener operation = new View.OnClickListener() {
@@ -72,8 +82,7 @@ public class ForumGuruAdapter extends RecyclerView.Adapter<ForumGuruAdapter.View
                 mContext.startActivity(intent);
             }
         };
-        holder.judul.setOnClickListener(operation);
-        holder.komentar.setOnClickListener(operation);
+        holder.layout.setOnClickListener(operation);
     }
 
     @Override
@@ -85,15 +94,15 @@ public class ForumGuruAdapter extends RecyclerView.Adapter<ForumGuruAdapter.View
         public TextView judul;
         public TextView konten;
         public TextView tanggal;
-        public TextView komentar;
-        public ImageView gambar;
+        public LinearLayout layout;
+        public CircleImageView iv_gambar;
         public ViewHolder(View itemView) {
             super(itemView);
             judul = (TextView)itemView.findViewById(R.id.tvJudul);
             konten = (TextView)itemView.findViewById(R.id.tvKonten);
             tanggal = (TextView)itemView.findViewById(R.id.tvCreated);
-            gambar = (ImageView)itemView.findViewById(R.id.ivGambar);
-            komentar = (TextView) itemView.findViewById(R.id.tvKomentar);
+            layout = (LinearLayout)itemView.findViewById(R.id.layout);
+            iv_gambar = (CircleImageView)itemView.findViewById(R.id.iv_gambar);
         }
     }
 

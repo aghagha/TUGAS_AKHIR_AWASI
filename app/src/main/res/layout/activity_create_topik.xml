@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:titleTextColor="@android:color/white"
-            android:background="@color/colorAccent">
+            android:background="@color/colorPrimary2">
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TextInputLayout
@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary2"
             android:text="@string/prompt_topik_tambah_gambar"
             android:textColor="@android:color/white"/>
 
@@ -115,7 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary2"
             android:text="Tambahkan topik"
             android:textColor="@android:color/white"/>
     </LinearLayout>

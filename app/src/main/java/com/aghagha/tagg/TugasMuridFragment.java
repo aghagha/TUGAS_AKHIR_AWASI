@@ -66,6 +66,12 @@ public class TugasMuridFragment extends Fragment {
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        //getTugasList();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tugas_murid, container, false);

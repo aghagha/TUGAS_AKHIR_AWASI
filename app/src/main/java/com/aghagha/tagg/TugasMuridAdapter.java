@@ -43,51 +43,60 @@ public class TugasMuridAdapter extends RecyclerView.Adapter<TugasMuridAdapter.Vi
     public void onBindViewHolder(final TugasMuridAdapter.ViewHolder holder, final int position) {
         final String judul = tugasList.get(position).getMapel()+": "+tugasList.get(position).getJudul();
         final String konten = tugasList.get(position).getKonten();
-        final String dibuat = "dipost "+tugasList.get(position).getDibuat();
+        final String dibuat = "dipost "+tugasList.get(position).getDibuat()+" oleh Bu Umayah";
         final String deadline = tugasList.get(position).getDeadline();
         final String status = tugasList.get(position).getStatus();
         final String cek = tugasList.get(position).getCek();
         holder.judul.setText(judul);
         holder.konten.setText(konten);
         holder.dibuat.setText(dibuat);
-        if(cek.equals("1")){
-            holder.label_deadline.setVisibility(View.GONE);
-            holder.deadline.setText("Sudah dikerjakan");
-        } else {
-            holder.label_deadline.setVisibility(View.VISIBLE);
-            holder.deadline.setText(deadline);
-        }
+//        if(cek.equals("1")){
+//            holder.label_deadline.setVisibility(View.GONE);
+//            holder.deadline.setText("Sudah dikerjakan");
+//        } else {
+//            holder.label_deadline.setVisibility(View.VISIBLE);
+//            holder.deadline.setText(deadline);
+//        }
+        holder.deadline.setText(deadline);
         Log.d("Tugas ","dengan judul "+judul+" statusnya "+status+"dan cek="+status.equals("1"));
 
         if(status.equals("1")){
             //kelewat deadline
-            holder.judul.setTextColor(ContextCompat.getColor(mContext,android.R.color.white));
-            holder.dibuat.setTextColor(ContextCompat.getColor(mContext,android.R.color.white));
-            holder.layout2.setVisibility(View.GONE);
-            holder.layout3.setVisibility(View.VISIBLE);
+            holder.icon.setVisibility(View.VISIBLE);
             if(tugasList.get(position).getTelat()){
                 //telat dan belum ditandai
-                holder.layout.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorTextRed));
+                holder.deadline_bg.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorTextRed));
+                holder.deadline.setText("BELUM DIKERJAKAN");
                 Drawable silang = ContextCompat.getDrawable(mContext,R.drawable.ic_silang);
                 holder.icon.setImageDrawable(silang);
                 holder.icon.setColorFilter(Color.WHITE);
             } else {
                 //tepat waktu
-                holder.layout.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorAccent));
+                holder.deadline_bg.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorAccent));
+                holder.deadline.setText("SELESAI");
                 Drawable centang = ContextCompat.getDrawable(mContext,R.drawable.ic_centang);
                 holder.icon.setImageDrawable(centang);
                 holder.icon.setColorFilter(Color.WHITE);
 
-                holder.judul.setOnClickListener(new View.OnClickListener() {
+                holder.layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(mContext, "Lihat/tunggu nilai tugas di halaman laporan", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(mContext, TandaiTugasActivity.class);
+                        intent.putExtra("id", String.valueOf(tugasList.get(position).getId_tugas()));
+                        intent.putExtra("judul", judul);
+                        intent.putExtra("konten", konten);
+                        intent.putExtra("dibuat", dibuat);
+                        intent.putExtra("deadline", deadline);
+                        intent.putExtra("status", status);
+                        intent.putExtra("cek", cek);
+                        mContext.startActivity(intent);
+//                        Toast.makeText(mContext, "Lihat/tunggu nilai tugas di halaman laporan", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         } else {
             //masih belum deadline
-            holder.judul.setOnClickListener(new View.OnClickListener() {
+            holder.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, TandaiTugasActivity.class);
@@ -115,8 +124,8 @@ public class TugasMuridAdapter extends RecyclerView.Adapter<TugasMuridAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView judul, dibuat, deadline, konten, label_deadline;
-        public LinearLayout layout, layout2, layout3;
+        public TextView judul, dibuat, deadline, konten;
+        public LinearLayout deadline_bg, layout;
         public ImageView icon;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -125,11 +134,9 @@ public class TugasMuridAdapter extends RecyclerView.Adapter<TugasMuridAdapter.Vi
             konten = (TextView)itemView.findViewById(R.id.tvKonten);
             dibuat = (TextView)itemView.findViewById(R.id.tvCreated);
             deadline = (TextView)itemView.findViewById(R.id.tvDeadline);
-            label_deadline = (TextView)itemView.findViewById(R.id.tv_label_deadline);
-            layout = (LinearLayout) itemView.findViewById(R.id.layout);
-            layout2 = (LinearLayout) itemView.findViewById(R.id.layout2);
-            layout3 = (LinearLayout) itemView.findViewById(R.id.layout3);
             icon = (ImageView) itemView.findViewById(R.id.ikon);
+            deadline_bg = (LinearLayout) itemView.findViewById(R.id.deadline_bg);
+            layout = (LinearLayout) itemView.findViewById(R.id.layout);
         }
     }
 }

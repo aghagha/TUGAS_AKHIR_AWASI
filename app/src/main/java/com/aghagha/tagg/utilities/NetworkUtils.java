@@ -5,10 +5,10 @@ package com.aghagha.tagg.utilities;
  */
 
 public class NetworkUtils {
-    //server localhost/bismillahTAselesai/public/api/login
-    static String ip = "http://10.151.34.113";
-    public static final String server = ip+"/bismillahTAselesai/public/api/";
-    public static final String serverDir = ip+"/bismillahTAselesai/public/uploads/";
+    static String ip = "http://128.199.139.178/bismillahtaselesai";
+//    static String ip = "http://10.151.34.113/bismillahTAselesai";
+    public static final String server = ip+"/public/api/";
+    public static final String serverDir = ip+"/public/uploads/";
     //test login
     public static final String login = server + "login";
     public static final String token = server + "token";

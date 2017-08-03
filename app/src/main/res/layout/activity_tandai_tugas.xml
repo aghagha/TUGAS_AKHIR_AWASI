@@ -1,85 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.aghagha.tagg.TandaiTugasActivity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.aghagha.tagg.TandaiTugasActivity">
-    <View
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="0px"
-        android:layout_height="0px"/>
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleTextColor="@android:color/white"
-        android:background="@color/colorAccent">
-    </android.support.v7.widget.Toolbar>
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@android:color/white">
-        <TextView
-            android:id="@+id/tvJudul"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Judul"
-            android:layout_marginBottom="8dp"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:clickable="true"/>
+            app:titleTextColor="@android:color/white"
+            android:background="@color/colorPrimary2">
+        </android.support.v7.widget.Toolbar>
         <TextView
             android:id="@+id/tvCreated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:text="Tanggal"
             android:textColor="@color/colorTextGray"
             android:textSize="10sp"
             android:textStyle="italic" />
-
-        <TextView
-            android:id="@+id/tvKonten"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="12sp"
-            android:textColor="@android:color/black"
-            android:text="Konten"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorSekunder"
-        android:orientation="vertical"
-        android:padding="8dp"
-        android:elevation="2dp">
-
-        <TextView
-            android:id="@+id/tvDeadline"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@android:color/white"
+            android:elevation="2dp">
+            <TextView
+                android:id="@+id/tvJudul"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Judul"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/tvKonten"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Konten"
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+            <ImageView
+                android:id="@+id/iv_centang"
+                android:layout_marginTop="8dp"
+                android:layout_width="100dp"
+                android:layout_height="86dp"
+                android:src="@drawable/__centang"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+            <TextView
+                android:id="@+id/tvNilai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nilai: 80"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:paddingTop="8dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llCekDeadline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Deadline"
-            android:textColor="@android:color/white"
-            android:textSize="10sp" />
-        <TextView
+            android:background="@color/colorPrimary2"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:elevation="2dp">
+
+            <TextView
+                android:id="@+id/tvDeadline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Deadline"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="(klik untuk menandai tugas)"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_grafik"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="(klik untuk menandai tugas)"
-            android:textColor="@android:color/white"
-            android:textSize="10sp" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:orientation="vertical"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="28dp"
+                android:paddingLeft="16dp"
+                android:paddingBottom="4dp"
+                android:gravity="bottom"
+                android:textSize="10sp"
+                android:text="GRAFIK"/>
 
+            <Spinner
+                android:id="@+id/tipe_grafik"
+                style="@style/spinner_style"
+                android:layout_marginBottom="16dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/grafik"
+                android:elevation="2dp"/>
+
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
+

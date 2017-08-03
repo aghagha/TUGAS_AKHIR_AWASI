@@ -84,14 +84,14 @@ public class MuridAdapter extends RecyclerView.Adapter<MuridAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView nama, kelas, sekolah;
         ImageView iv_gambar;
-        RelativeLayout layout;
+        LinearLayout layout;
         public ViewHolder(View itemView) {
             super(itemView);
             nama = (TextView)itemView.findViewById(R.id.tv_nama);
             kelas = (TextView)itemView.findViewById(R.id.tv_kelas);
             sekolah = (TextView)itemView.findViewById(R.id.tv_sekolah);
             iv_gambar = (ImageView) itemView.findViewById(R.id.iv_gambar);
-            layout = (RelativeLayout) itemView.findViewById(R.id.layout);
+            layout = (LinearLayout) itemView.findViewById(R.id.layout);
         }
     }
 

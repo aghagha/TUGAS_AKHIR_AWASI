@@ -82,7 +82,7 @@ public class BeritaActivity extends AppCompatActivity {
         layout2 = (LinearLayout)findViewById(R.id.layout2);
         download = (ImageView) findViewById(R.id.download);
 
-        download.setColorFilter(ContextCompat.getColor(BeritaActivity.this,R.color.colorAccent));
+        download.setColorFilter(ContextCompat.getColor(BeritaActivity.this,R.color.colorPrimary2));
 
         Intent intent = getIntent();
         judul.setText(intent.getStringExtra("judul"));

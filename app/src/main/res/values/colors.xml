@@ -2,13 +2,17 @@
 <resources>
     <color name="colorPrimary">#176936</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#176936</color>
-    <color name="colorAccentDark">#0d5329</color>
+    <color name="colorPrimary2">#0e88a5</color>
+    <color name="colorAccent">#0e88a5</color>
+    <color name="secondAccent">#00bfa5</color>
+    <color name="colorAccentDark">#077d99</color>
+    <color name="colorAccentDark2">#077d99</color>
     <color name="colorIcons">#FFFFFF</color>
 
-    <color name="colorSekunder">#47A064</color>
+    <color name="colorSekunder">#1bcdee</color>
+    <color name="colorSekunder2">#1bcdee</color>
     <color name="colorCrimson">#C6B5A0</color>
-    <color name="colorGray">#EBEBEB</color>
+    <color name="colorGray">#ededed</color>
     <color name="colorTextGray">#6E6E6E</color>
     <color name="colorTextRed">#DB1616</color>
 </resources>

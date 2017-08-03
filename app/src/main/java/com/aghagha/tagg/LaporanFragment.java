@@ -2,8 +2,12 @@ package com.aghagha.tagg;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,6 +45,7 @@ public class LaporanFragment extends Fragment {
     private RecyclerView rvLaporan;
     private Spinner mapelSpinner;
     private TextView tvlabel;
+    private FloatingActionButton fb_download;
 
     private List<Laporan> laporanList;
 
@@ -106,6 +111,11 @@ public class LaporanFragment extends Fragment {
                 getLaporan();
             }
         });
+
+        fb_download = (FloatingActionButton)view.findViewById(R.id.fb_download);
+        Drawable drawable = fb_download.getDrawable();
+        drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        fb_download.setBackgroundDrawable(drawable);
 
         getLaporan();
 
